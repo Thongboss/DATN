@@ -17,7 +17,7 @@ public class Authority implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "authority_name", nullable = false, length = 20)
+    @Column(name = "authority_name", nullable = false, length = 20, unique = true)
     private String authorityName;
 
 }

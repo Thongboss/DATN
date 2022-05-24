@@ -21,7 +21,7 @@ public class User implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "username", nullable = false, length = 60)
+    @Column(name = "username", nullable = false, length = 60, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -30,7 +30,7 @@ public class User implements Serializable {
     @Column(name = "fullname", length = 255)
     private String fullname;
 
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
 
     @Temporal(TemporalType.TIMESTAMP)

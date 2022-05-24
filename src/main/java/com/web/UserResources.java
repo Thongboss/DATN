@@ -38,7 +38,6 @@ public class UserResources {
 
     @PostMapping("login")
     public ResponseDto login(@RequestBody JwtUserLoginModel userLoginModel) {
-        System.out.println("login");
         return ResponseDto.of(this.userService.login(userLoginModel), userLoginModel.getUsername() + " Login");
     }
 }

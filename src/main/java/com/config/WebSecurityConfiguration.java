@@ -46,16 +46,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(new JwtAuthenticationProvider().userService(this.userService));
+    }
 
-        http.cors().and().csrf().disable()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.cors().disable()
+                .csrf().disable()
                 .formLogin().disable()
-                .logout().disable();
+                .logout().disable()
+                .sessionManagement().disable();
 
         http.authorizeRequests()
                 .requestMatchers(PRIVATE_URLS).authenticated()
-                .and().exceptionHandling().authenticationEntryPoint((req, res, auth) -> {
+                .and().exceptionHandling().accessDeniedHandler((req, res, auth) -> {
                     res.sendError(401, "You must have to login");
                 });
         http.addFilterBefore(new JwtFilter(userService), org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);

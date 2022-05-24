@@ -1,6 +1,7 @@
 package com.config.jwt;
 
 import com.service.CustomUserDetail;
+import com.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -11,17 +12,28 @@ import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+
 public class JwtAuthenticationProvider implements AuthenticationProvider {
     private final Logger logger = LoggerFactory.getLogger(JwtAuthenticationProvider.class);
     protected final MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
+    private IUserService userService;
+
+
+    public JwtAuthenticationProvider userService(IUserService userService){
+        this.userService =userService;
+        return this;
+    }
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        logger.info("jwt authentication provider is authenticating ");
         CustomUserDetail userDetail = (CustomUserDetail) authentication.getPrincipal();
-        if (!BCrypt.checkpw(authentication.getCredentials().toString(), userDetail.getPassword()))
-            throw new BadCredentialsException(JwtAuthenticationProvider.this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
         check(userDetail);
-        authentication.setAuthenticated(true);
+        if (!BCrypt.checkpw(authentication.getCredentials().toString(), userDetail.getPassword())) {
+            userDetail.getUser().setLoginFailed(userDetail.getUser().getLoginFailed() + 1);
+            throw new BadCredentialsException(JwtAuthenticationProvider.this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+        }
         return authentication;
     }
 
@@ -42,6 +54,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.isInstance(UsernamePasswordAuthenticationToken.class);
+        return UsernamePasswordAuthenticationToken.class.getName().equalsIgnoreCase(authentication.getName());
     }
 }

@@ -51,26 +51,6 @@ public class UserServiceImpl implements IUserService {
         this.jwtProvider = jwtProvider;
         this.authenticationManager = authenticationManager;
         this.mailService = mailService;
-
-//        try {
-//            this.authorityRepository.save(Authority.builder()
-//                    .id(1).authorityName(SecurityUtils.ROLE_ADMIN).build());
-//            this.authorityRepository.save(Authority.builder()
-//                    .id(2).authorityName(SecurityUtils.ROLE_USER).build());
-//            User user = User.builder()
-//                    .fullname("admin")
-//                    .username("admin")
-//                    .email("admin@admin.com")
-//                    .status(true)
-//                    .createdDate(Calendar.getInstance().getTime())
-//                    .loginFailed(0)
-//                    .password(this.passwordEncoder.encode("1234"))
-//                    .authorityFilter(this.authorityRepository.findAllByIdIn(List.of(1, 2)))
-//                    .build();
-//            this.userRepository.save(user);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     public User modelToEntity(UserModel userModel) {
@@ -79,12 +59,12 @@ public class UserServiceImpl implements IUserService {
                 .id(userModel.getId())
                 .username(userModel.getUsername())
                 .fullname(userModel.getFullname())
-//                .email(userModel.getUserEmail())
-//                .createdDate(userModel.getUserRegistered())
-//                .status(userModel.getUserStatus())
-//                .userAvatar(userModel.getUserAvatar())
-//                .userDescription(userModel.getUserDescription())
-//                .loginFailed(userModel.getLoginFailed())
+                .email(userModel.getEmail())
+                .createdDate(Calendar.getInstance().getTime())
+                .status(userModel.getStatus())
+                .avatar(userModel.getAvatar())
+                .description(userModel.getDescription())
+                .loginFailed(userModel.getLoginFailed())
                 .build();
 
     }
@@ -128,15 +108,13 @@ public class UserServiceImpl implements IUserService {
         User user = modelToEntity(model); // convert lai tu model sang entity
         user.setPassword(passwordEncoder.encode(model.getPassword()));
         user.setCreatedDate(Calendar.getInstance().getTime());
-
-        Set<Authority> authorities = this.authorityRepository.findAllByIdIn(model.getAuthority());
-        user.setAuthorityFilter(authorities);
+        setAuthority(user, model.getAuthority());
 
         return this.userRepository.save(user);
     }
 
-    void setAuthority(User user, List<Integer> authorityLevel) {
-        user.setAuthorityFilter(this.authorityRepository.findAllByIdIn(authorityLevel));
+    void setAuthority(User user, List<Integer> authorities) {
+        user.setAuthorityFilter(this.authorityRepository.findAllByIdIn(authorities));
         if (user.getAuthorityFilter().isEmpty())
             user.setAuthorityFilter(Collections
                     .singleton(this.authorityRepository.findByAuthorityName(SecurityUtils.ROLE_USER)
@@ -148,15 +126,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User update(UserModel model) {
         User original = this.findById(model.getId());
-//        if (model.getPassword() != null)
-//            original.setUserPass(passwordEncoder.encode(model.getUserPass()));
-//        original.setUserEmail(model.getUserEmail());
-//        original.setUserNicename(model.getUserNicename());
-//        original.setDisplayName(model.getDisplayName());
-//        original.setUserAvatar(model.getUserAvatar());
-//        original.setUserDescription(model.getUserDescription());
-//        original.setUserStatus(model.getUserStatus());
-//        setAuthority(original, model.getAuthorityLevel());
+        User user = modelToEntity(model); // convert lai tu model sang entity
+        if (model.getPassword() != null)
+            user.setPassword(passwordEncoder.encode(model.getPassword()));
+        else user.setPassword(original.getPassword());
+        setAuthority(user, model.getAuthority());
         return this.userRepository.save(original);
     }
 
@@ -171,7 +145,6 @@ public class UserServiceImpl implements IUserService {
     public boolean deleteByIds(List<Long> id) {
         return false;
     }
-
 
     @Override
     public User findByUsername(String username) {
@@ -237,13 +210,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public JwtLoginResponse login(JwtUserLoginModel userLogin) {
+        System.out.println("login service");
         UserDetails userDetail = new CustomUserDetail(this.findByUsername(userLogin.getUsername()));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetail, userLogin.getPassword(), userDetail.getAuthorities()));
         return JwtLoginResponse.builder()
                 .token(jwtProvider.generateToken(userLogin.getUsername(), userLogin.isRemember() ? 86400 * 7 : 0l))
                 .authorities(userDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .type("Bearer")
                 .build();
     }
-
 
 }
