@@ -2,7 +2,6 @@ package com.service.impl;
 
 import com.Utils.SecurityUtils;
 import com.config.jwt.*;
-import com.entities.Authority;
 import com.entities.User;
 import com.entities.models.UserModel;
 import com.entities.models.UserRegisterModel;
@@ -19,7 +18,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
@@ -197,6 +195,7 @@ public class UserServiceImpl implements IUserService {
         return true;
     }
 
+    @Transactional
     @Override
     public boolean tokenFilter(String token, HttpServletRequest req) {
         String username = this.jwtProvider.getUsernameFromToken(token);
@@ -211,7 +210,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public JwtLoginResponse login(JwtUserLoginModel userLogin) {
         System.out.println("login service");
-        UserDetails userDetail = new CustomUserDetail(this.findByUsername(userLogin.getUsername()));
+        CustomUserDetail userDetail = new CustomUserDetail(this.findByUsername(userLogin.getUsername()));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetail, userLogin.getPassword(), userDetail.getAuthorities()));
         return JwtLoginResponse.builder()
                 .token(jwtProvider.generateToken(userLogin.getUsername(), userLogin.isRemember() ? 86400 * 7 : 0l))

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequestMapping("users")
 public class UserResources {
@@ -21,6 +23,7 @@ public class UserResources {
         this.userService = userService;
     }
 
+    @Transactional
     @GetMapping
     public ResponseDto getAll(Pageable page) {
         Page<User> userPage = this.userService.findAll(page); // page use entity
@@ -31,11 +34,13 @@ public class UserResources {
         return ResponseDto.of(userDtosPage, "Get all users");
     }
 
+    @Transactional
     @PostMapping
     public ResponseDto add(@RequestBody UserModel userModel) {
-        return ResponseDto.of(this.userService.add(userModel), "Add new user");
+        return ResponseDto.of(UserDto.toDto(this.userService.add(userModel)), "Add new user");
     }
 
+    @Transactional
     @PostMapping("login")
     public ResponseDto login(@RequestBody JwtUserLoginModel userLoginModel) {
         return ResponseDto.of(this.userService.login(userLoginModel), userLoginModel.getUsername() + " Login");
