@@ -15,18 +15,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "DanhMuc")
-public class DanhMuc {
+@Table(name = "Categories")
+public class Categories {
 
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	@Column(name="id")
 	private Integer id;
 	
-	@Column(name="Tendanhmuc",length =255, nullable = false )
-	private String Tendanhmuc;
+	@Column(name="catogory_name",length =255, nullable = false )
+	private String catogoryName;
 	
-	@Column(name="Mota",length =255, nullable = false )
-	private String Mota;
+	@Column(name="slug",length =255, nullable = false )
+	private String slug;
 	
 }

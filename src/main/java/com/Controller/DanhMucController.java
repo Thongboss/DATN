@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entities.DanhMuc;
+import com.entities.Categories;
 import com.repository.DanhMucRepository;
 
 @CrossOrigin("*") //Mọi truy xuất bên ngoài vào được
@@ -25,12 +25,12 @@ public class DanhMucController {
 	DanhMucRepository danhMucRepository;
 	
 	@GetMapping("/danhmuc")
-	public ResponseEntity<List<DanhMuc>> getAll(Model model){
+	public ResponseEntity<List<Categories>> getAll(Model model){
 		return ResponseEntity.ok(danhMucRepository.findAll());
 	}
 	
 	@GetMapping("/danhmuc/{id}")
-	public ResponseEntity<DanhMuc> getById(@PathVariable("id") Integer id){
+	public ResponseEntity<Categories> getById(@PathVariable("id") Integer id){
 //	Kiểm tra kết quả trả về có tồn tại hay không
 		if (!danhMucRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -39,7 +39,7 @@ public class DanhMucController {
 	}
 	
 	@PostMapping("/danhmuc")
-	public ResponseEntity<DanhMuc> postDanhMuc(@RequestBody DanhMuc danhmuc){
+	public ResponseEntity<Categories> postDanhMuc(@RequestBody Categories danhmuc){
 //		Kiểm tra Id có tồn tại hay không
 		if(danhMucRepository.existsById(danhmuc.getId())) {
 			return ResponseEntity.badRequest().build();
@@ -49,7 +49,7 @@ public class DanhMucController {
 	}
 	
 	@PutMapping("/danhmuc/{id}")
-	public ResponseEntity<DanhMuc> putDanhMuc(@PathVariable("id") Integer id,@RequestBody DanhMuc danhmuc){
+	public ResponseEntity<Categories> putDanhMuc(@PathVariable("id") Integer id,@RequestBody Categories danhmuc){
 		if (!danhMucRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

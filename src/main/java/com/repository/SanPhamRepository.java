@@ -2,8 +2,8 @@ package com.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.entities.SanPham;
+import com.entities.Products;
 
-public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
+public interface SanPhamRepository extends JpaRepository<Products,Integer> {
 
 }

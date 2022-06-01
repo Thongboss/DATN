@@ -13,21 +13,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "SanPham")
-public class SanPham {
+@Table(name = "Products")
+public class Products {
 	
 	@Id
 	@Column(name="id")
-	private Integer id;
+	private long id;
 	
-	@Column(name = "Tensp",length =255, nullable = false)
-	private String Tensp;
+	@Column(name = "name",length =255, nullable = false)
+	private String name;
 	
-	@Column(name = "Ghichu",length =255, nullable = true)
-	private String Ghichu;
+	@Column(name = "note",length =255, nullable = true)
+	private String note;
 	
-	@Column(name = "Trangthai",length =255, nullable = false)
-	private String Trangthai;
+	@Column(name = "status",length =255, nullable = false)
+	private String status;
 	
 	
 	
