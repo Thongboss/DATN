@@ -17,4 +17,5 @@ public class AuthorityModel implements Serializable {
     private Integer id;
 
     private String authorityName;
+
 }

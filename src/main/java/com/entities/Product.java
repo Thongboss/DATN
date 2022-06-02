@@ -6,12 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "Products")
 public class Product {
@@ -20,15 +22,9 @@ public class Product {
 	@Column(name="id")
 	private Long id;
 	
-	@Column(name = "name",length =255, nullable = false)
-	private String name;
+	@Column(name = "product_name",length =255, nullable = false)
+	private String productName;
 	
-	@Column(name = "note",length =255, nullable = true)
-	private String note;
-	
-	@Column(name = "status",length =255, nullable = false)
-	private String status;
-	
-	
-	
+	@Column(name = "description",length =255, nullable = true)
+	private String description;
 }

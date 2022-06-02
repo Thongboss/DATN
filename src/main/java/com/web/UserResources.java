@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("users")
 public class UserResources {
@@ -31,10 +33,36 @@ public class UserResources {
         return ResponseDto.of(userDtosPage, "Get all users");
     }
 
+    @GetMapping("{id}")
+    public ResponseDto getUser(@PathVariable long id) {
+        return ResponseDto.of(UserDto.toDto(this.userService.findById(id)), "Get user id: " + id);
+    }
+
+    @GetMapping("my-profile")
+    public ResponseDto getMyProfile(){
+        return ResponseDto.of(UserDto.toDto(this.userService.getMyProfile()), "Get my profile");
+    }
+
     @PostMapping
     public ResponseDto add(@RequestBody UserModel userModel) {
         return ResponseDto.of(this.userService.add(userModel), "Add new user");
     }
+
+    @PutMapping("{id}")
+    public ResponseDto update(@PathVariable long id, @RequestBody UserModel userModel) {
+        userModel.setId(id);
+        return ResponseDto.of(this.userService.update(userModel), "Update user id: " + id);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseDto delete(@PathVariable long id) {
+        return ResponseDto.of(this.userService.deleteById(id), "Delete user id: " + id);
+    }
+    @DeleteMapping("buck/{ids}")
+    public ResponseDto deleteBuck(@PathVariable List<Long> ids) {
+        return ResponseDto.of(this.userService.deleteByIds(ids), "Delete users ids: " + ids);
+    }
+
 
     @PostMapping("login")
     public ResponseDto login(@RequestBody JwtUserLoginModel userLoginModel) {

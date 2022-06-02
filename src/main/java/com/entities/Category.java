@@ -3,6 +3,7 @@ package com.entities;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "Categories")
-public class Categories {
+@Builder
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

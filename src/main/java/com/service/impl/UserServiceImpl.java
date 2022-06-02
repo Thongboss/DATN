@@ -81,6 +81,11 @@ public class UserServiceImpl implements IUserService {
         return this.userRepository.findAll(page);
     }
 
+    @Override
+    public Page<User> findAll(Pageable page, Specification<User> specifications) {
+        return this.userRepository.findAll(specifications, page);
+    }
+
     @Transactional
     @Override
     public List<User> findAll() {
@@ -218,6 +223,11 @@ public class UserServiceImpl implements IUserService {
                 .authorities(userDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .type("Bearer")
                 .build();
+    }
+
+    @Override
+    public User getMyProfile() {
+        return this.findById(SecurityUtils.getCurrentUserId());
     }
 
 }

@@ -1,11 +1,14 @@
 package com.entities.models;
 
+import com.entities.Weight;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -13,6 +16,18 @@ import javax.persistence.*;
 @Builder
 public class WeightModel {
     private Long weightId;
+    @NotNull
+    @NotBlank
     private String weightCode;
+    @NotNull
+    @NotBlank
     private String weightName;
+
+    public static Weight toEntity(WeightModel model) {
+        if (model == null) throw new RuntimeException("WeightModel is null");
+        return Weight.builder()
+                .weightCode(model.getWeightCode())
+                .weightName(model.getWeightName())
+                .build();
+    }
 }

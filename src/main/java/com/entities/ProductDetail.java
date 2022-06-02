@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -27,14 +30,14 @@ public class ProductDetail {
     @Column(name = "new_price")
     private Double newPrice;
     @Column(name = "status")
-    private String status;
+    private Boolean status;
     @Column(name = "image")
     private String image;
     @Column(name = "product_remain")
     private Integer productRemain;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Categories category;
+    private Category category;
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
@@ -47,4 +50,11 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "weight_id")
     private Weight weight;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedDate;
 }

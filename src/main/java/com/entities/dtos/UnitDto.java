@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,14 @@ public class UnitDto {
     private String unitName;
     private List<ProductDetailDto> productDetails;
 
-    public static UnitDto toDto(Unit entity){
-        return null;
+    public static UnitDto toDto(Unit entity) {
+        if (entity == null)
+            return null;
+        return UnitDto.builder()
+                .unitId(entity.getUnitId())
+                .unitCode(entity.getUnitCode())
+                .unitName(entity.getUnitName())
+                .productDetails(entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()))
+                .build();
     }
 }

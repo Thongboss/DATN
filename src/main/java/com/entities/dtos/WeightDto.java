@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -18,13 +19,14 @@ public class WeightDto {
     private String weightName;
     private List<ProductDetailDto> productDetails;
 
-    public static WeightDto toDto(Weight entity){
-        if(entity == null)
-        return null;
+    public static WeightDto toDto(Weight entity) {
+        if (entity == null)
+            return null;
         return WeightDto.builder()
                 .weightId(entity.getWeightId())
                 .weightCode(entity.getWeightCode())
                 .weightName(entity.getWeightName())
+                .productDetails(entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()))
                 .build();
     }
 }

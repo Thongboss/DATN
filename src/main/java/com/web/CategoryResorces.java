@@ -2,9 +2,12 @@ package com.web;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.entities.dtos.CategoryDto;
+import com.entities.dtos.ResponseDto;
+import com.entities.models.CategoryModel;
+import com.service.ICategoryService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,55 +16,49 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entities.Categories;
-import com.repository.CategoryRepository;
+import com.entities.Category;
 
 @RestController
 public class CategoryResorces {
-	
-	@Autowired
-    CategoryRepository danhMucRepository;
-	
-	@GetMapping("/categories")
-	public ResponseEntity<List<Categories>> getAll(Model model){
-		return ResponseEntity.ok(danhMucRepository.findAll());
-	}
-	
-	@GetMapping("/categories/{id}")
-	public ResponseEntity<Categories> getById(@PathVariable("id") Integer id){
+
+    private final ICategoryService categoryService;
+
+    public CategoryResorces(ICategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @GetMapping("/categories")
+    public ResponseDto getAll(Pageable page) {
+        return ResponseDto.of(this.categoryService.findAll(page).map(CategoryDto::toDto), "Get all categories");
+    }
+
+    @GetMapping("/categories/{id}")
+    public ResponseDto getById(@PathVariable("id") long id) {
 //	Kiểm tra kết quả trả về có tồn tại hay không
-		if (!danhMucRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(danhMucRepository.findById(id).get());
-	}
-	
-	@PostMapping("/categories")
-	public ResponseEntity<Categories> postDanhMuc(@RequestBody Categories danhmuc){
+        return ResponseDto.of(CategoryDto.toDto(this.categoryService.findById(id)), "Get category id: " + id);
+    }
+
+    @PostMapping("/categories")
+    public ResponseDto createCategory(@RequestBody CategoryModel model) {
 //		Kiểm tra Id có tồn tại hay không
-		if(danhMucRepository.existsById(danhmuc.getCategoryId())) {
-			return ResponseEntity.badRequest().build();
-		}
-		danhMucRepository.save(danhmuc);
-		return ResponseEntity.ok(danhmuc);
-	}
-	
-	@PutMapping("/categories/{id}")
-	public ResponseEntity<Categories> putDanhMuc(@PathVariable("id") Integer id,@RequestBody Categories danhmuc){
-		if (!danhMucRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		danhMucRepository.save(danhmuc);
-		return ResponseEntity.ok(danhmuc);
-	}
-	
-	@DeleteMapping("/categories/{id}")
-	public ResponseEntity<Void> deleteDanhMuc(@PathVariable("id") Integer id){
-		if (!danhMucRepository.existsById(id)) {
-			return 	ResponseEntity.notFound().build();
-		}
-			danhMucRepository.deleteById(id);
-			return ResponseEntity.ok().build();
-	}
+        model.setCategoryId(null);
+        return ResponseDto.of(CategoryDto.toDto(this.categoryService.add(model)), "Add category");
+    }
+
+    @PutMapping("/categories/{id}")
+    public ResponseDto updateCategory(@PathVariable("id") long id, @RequestBody CategoryModel model) {
+        model.setCategoryId(id);
+        return ResponseDto.of(CategoryDto.toDto(this.categoryService.update(model)), "Update category id: " + id);
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public ResponseDto deleteCategory(@PathVariable("id") long id) {
+        return ResponseDto.of(this.categoryService.deleteById(id), "Delete category id: " + id);
+    }
+
+    @DeleteMapping("/categories/buck/{ids}")
+    public ResponseDto deleteBulkCategories(@PathVariable List<Long> ids) {
+        return ResponseDto.of(this.categoryService.deleteByIds(ids), "Delete buck categories: " + ids);
+    }
 }
 
