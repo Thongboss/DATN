@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.entities.models.DanhMuc;
-import com.repository.DanhMucRepository;
+import com.entities.models.CategoryModel;
+import com.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -14,15 +14,15 @@ import java.util.List;
 public class DanhMucController {
 	
 	@Autowired
-	DanhMucRepository danhMucRepository;
+    CategoryRepository danhMucRepository;
 	
 	@GetMapping("/danhmuc")
-	public ResponseEntity<List<DanhMuc>> getAll(Model model){
+	public ResponseEntity<List<CategoryModel>> getAll(Model model){
 		return ResponseEntity.ok(danhMucRepository.findAll());
 	}
 	
 	@GetMapping("/danhmuc/{id}")
-	public ResponseEntity<DanhMuc> getById(@PathVariable("id") Integer id){
+	public ResponseEntity<CategoryModel> getById(@PathVariable("id") Integer id){
 //	Kiểm tra kết quả trả về có tồn tại hay không
 		if (!danhMucRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -32,7 +32,7 @@ public class DanhMucController {
 	}
 	
 	@PostMapping("/danhmuc")
-	public ResponseEntity<DanhMuc> postDanhMuc(@RequestBody DanhMuc danhmuc){
+	public ResponseEntity<CategoryModel> postDanhMuc(@RequestBody CategoryModel danhmuc){
 //		Kiểm tra Id có tồn tại hay không
 		if(danhMucRepository.existsById(danhmuc.getId())) {
 			return ResponseEntity.badRequest().build();
@@ -42,7 +42,7 @@ public class DanhMucController {
 	}
 	
 	@PutMapping("/danhmuc/{id}")
-	public ResponseEntity<DanhMuc> putDanhMuc(@PathVariable("id") Integer id,@RequestBody DanhMuc danhmuc){
+	public ResponseEntity<CategoryModel> putDanhMuc(@PathVariable("id") Integer id, @RequestBody CategoryModel danhmuc){
 		if (!danhMucRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

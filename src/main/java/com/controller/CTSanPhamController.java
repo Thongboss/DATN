@@ -1,8 +1,7 @@
 package com.controller;
 
-import com.entities.models.CTSanPhamModel;
-import com.repository.CTSanPhamRepository;
-import com.service.CTSanPhamService;
+import com.entities.models.DetailProduct;
+import com.repository.DetailProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -15,16 +14,16 @@ import java.util.List;
 public class CTSanPhamController {
 
     @Autowired
-    CTSanPhamRepository ctSanPhamRepository;
+    DetailProductRepository ctSanPhamRepository;
 
 
     @GetMapping("/ct-sanpham")
-    public ResponseEntity<List<CTSanPhamModel>> getAll(Model model){
+    public ResponseEntity<List<DetailProduct>> getAll(Model model){
         return ResponseEntity.ok(ctSanPhamRepository.findAll());
     }
 
     @GetMapping("/ct-sanpham/{id}")
-    public ResponseEntity<CTSanPhamModel> getById(@PathVariable("id") Integer id){
+    public ResponseEntity<DetailProduct> getById(@PathVariable("id") Integer id){
 //	Kiểm tra kết quả trả về có tồn tại hay không
         if (!ctSanPhamRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
@@ -34,7 +33,7 @@ public class CTSanPhamController {
     }
 
     @PostMapping("/ct-sanpham")
-    public ResponseEntity<CTSanPhamModel> postCTSanPham(@RequestBody CTSanPhamModel ctSanPham){
+    public ResponseEntity<DetailProduct> postCTSanPham(@RequestBody DetailProduct ctSanPham){
 //		Kiểm tra Id có tồn tại hay không
         if(ctSanPhamRepository.existsById(ctSanPham.getId())) {
             return ResponseEntity.badRequest().build();
@@ -44,7 +43,7 @@ public class CTSanPhamController {
     }
 
     @PutMapping("/ct-sanpham/{id}")
-    public ResponseEntity<CTSanPhamModel> putCTSanPham(@PathVariable("id") Integer id,@RequestBody CTSanPhamModel ctSanPham){
+    public ResponseEntity<DetailProduct> putCTSanPham(@PathVariable("id") Integer id, @RequestBody DetailProduct ctSanPham){
         if (!ctSanPhamRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

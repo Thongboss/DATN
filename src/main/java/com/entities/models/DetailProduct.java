@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class CTSanPhamModel {
+public class DetailProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -31,11 +31,11 @@ public class CTSanPhamModel {
 
     @ManyToOne
     @JoinColumn(name = "san_pham_id")
-    private SanPham sanPham;
+    private ProductModel sanPham;
 
     @ManyToOne
     @JoinColumn(name = "danh_muc_id")
-    private DanhMuc danhMuc;
+    private CategoryModel danhMuc;
 
     public Integer getId() {
         return id;
@@ -77,19 +77,19 @@ public class CTSanPhamModel {
         this.hanSuDung = hanSuDung;
     }
 
-    public SanPham getSanPham() {
+    public ProductModel getSanPham() {
         return sanPham;
     }
 
-    public void setSanPham(SanPham sanPham) {
+    public void setSanPham(ProductModel sanPham) {
         this.sanPham = sanPham;
     }
 
-    public DanhMuc getDanhMuc() {
+    public CategoryModel getDanhMuc() {
         return danhMuc;
     }
 
-    public void setDanhMuc(DanhMuc danhMuc) {
+    public void setDanhMuc(CategoryModel danhMuc) {
         this.danhMuc = danhMuc;
     }
 }

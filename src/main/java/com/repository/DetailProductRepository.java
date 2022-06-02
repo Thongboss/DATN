@@ -1,10 +1,11 @@
 package com.repository;
 
-import com.entities.models.SanPham;
+import com.entities.models.DetailProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
+public interface DetailProductRepository extends JpaRepository<DetailProduct,Integer> {
 
 }
+

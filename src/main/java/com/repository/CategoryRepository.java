@@ -1,11 +1,10 @@
 package com.repository;
 
-import com.entities.models.CTSanPhamModel;
+import com.entities.models.CategoryModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CTSanPhamRepository extends JpaRepository<CTSanPhamModel,Integer> {
+public interface CategoryRepository extends JpaRepository<CategoryModel,Integer> {
 
 }
-

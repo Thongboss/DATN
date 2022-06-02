@@ -1,9 +1,9 @@
 package com.controller;
 
-import com.entities.models.SanPham;
-import com.repository.SanPhamRepository;
+import com.entities.models.ProductModel;
+import com.repository.ProductRepository;
 
-import com.service.SanPhamService;
+import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -16,18 +16,18 @@ import java.util.List;
 public class SanPhamController {
 
 	@Autowired
-	SanPhamRepository spRepository;
+    ProductRepository spRepository;
 
 	@Autowired
-	SanPhamService sanPhamService;
+	ProductService sanPhamService;
 
 	@GetMapping("/sanpham")
-	public ResponseEntity<List<SanPham>> getAll(Model model){
+	public ResponseEntity<List<ProductModel>> getAll(Model model){
 		return ResponseEntity.ok(spRepository.findAll());
 	}
 //	Hiển thị sp theo id
 	@GetMapping("/sanpham/{id}")
-	public ResponseEntity<SanPham> getById(@PathVariable("id") Integer id){
+	public ResponseEntity<ProductModel> getById(@PathVariable("id") Integer id){
 //		Kiểm tra kết quả trả về có tồn tại hay không
 		if (!spRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -36,9 +36,9 @@ public class SanPhamController {
 	}
 
 	@GetMapping("/sanpham/{danhMucId}")
-	public ResponseEntity<List<SanPham>> getByDanhMuc(@PathVariable("id") Integer id){
+	public ResponseEntity<List<ProductModel>> getByDanhMuc(@PathVariable("id") Integer id){
 //		Kiểm tra kết quả trả về có tồn tại hay không
-		List<SanPham> danhSachSanPham = sanPhamService.getByDanhMuc(id);
+		List<ProductModel> danhSachSanPham = sanPhamService.getByDanhMuc(id);
 		if (danhSachSanPham.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
@@ -46,7 +46,7 @@ public class SanPhamController {
 	}
 	
 	@PostMapping("/sanpham")
-	public ResponseEntity<SanPham> postSanPham(@RequestBody SanPham sanpham){
+	public ResponseEntity<ProductModel> postSanPham(@RequestBody ProductModel sanpham){
 //		Kiểm tra Id có tồn tại hay không	
 		if (spRepository.existsById(sanpham.getId())) {
 			return ResponseEntity.badRequest().build();
@@ -56,7 +56,7 @@ public class SanPhamController {
 	}
 //	Update sản phẩm
 	@PutMapping("/sanpham/{id}")
-	public ResponseEntity<SanPham> putsanPham(@PathVariable("id") Integer id, @RequestBody SanPham sanpham){
+	public ResponseEntity<ProductModel> putsanPham(@PathVariable("id") Integer id, @RequestBody ProductModel sanpham){
 		if (!spRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
