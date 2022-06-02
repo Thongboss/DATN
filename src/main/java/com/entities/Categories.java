@@ -1,15 +1,12 @@
 package com.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +18,7 @@ public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer categoryId;
+    private Long categoryId;
 
     @Column(name = "category_name", length = 255, nullable = false)
     private String categoryName;
@@ -29,4 +26,6 @@ public class Categories {
     @Column(name = "slug", length = 255, nullable = false)
     private String slug;
 
+    @OneToMany(mappedBy = "category")
+    private List<ProductDetail> productDetails;
 }

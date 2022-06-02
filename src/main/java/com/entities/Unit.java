@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,6 @@ public class Unit {
     private String unitCode;
     @Column(name = "unit_name")
     private String unitName;
+    @OneToMany(mappedBy = "unit")
+    private List<ProductDetail> productDetails;
 }

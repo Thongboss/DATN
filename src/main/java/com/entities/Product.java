@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "Products")
-public class Products {
+public class Product {
 	
 	@Id
 	@Column(name="id")

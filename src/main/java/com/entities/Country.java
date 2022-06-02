@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,6 @@ public class Country {
     private String countryCode;
     @Column(name = "country_name")
     private String countryName;
+    @OneToMany(mappedBy = "country")
+    private List<ProductDetail> productDetails;
 }

@@ -1,5 +1,6 @@
 package com.entities.dtos;
 
+import com.entities.ProductDetail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,9 @@ public class ProductDetailDto {
     private Long country;
     private Long unit;
     private Long weight;
+
+    public static ProductDetailDto toDto(ProductDetail entity){
+        if(entity==null) return  null;
+        return null;
+    }
 }

@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entities.Products;
-import com.repository.SanPhamRepository;
+import com.entities.Product;
+import com.repository.ProductRepository;
 
 @RestController
 public class ProductResources {
 
 	@Autowired
-	SanPhamRepository spRepository;
+	ProductRepository spRepository;
 	
 	@GetMapping("/products")
-	public ResponseEntity<List<Products>> getAll(Model model){
+	public ResponseEntity<List<Product>> getAll(Model model){
 		return ResponseEntity.ok(spRepository.findAll());
 	}
 //	Hiển thị sp theo id
 	@GetMapping("/products/{id}")
-	public ResponseEntity<Products> getById(@PathVariable("id") Integer id){
+	public ResponseEntity<Product> getById(@PathVariable("id") Integer id){
 //		Kiểm tra kết quả trả về có tồn tại hay không
 		if (!spRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -37,7 +37,7 @@ public class ProductResources {
 	}
 	
 	@PostMapping("/products")
-	public ResponseEntity<Products> postSanPham(@RequestBody Products sanpham){
+	public ResponseEntity<Product> postSanPham(@RequestBody Product sanpham){
 //		Kiểm tra Id có tồn tại hay không	
 //		if (spRepository.existsById(sanpham.getId())) {
 //			return ResponseEntity.badRequest().build();
@@ -47,7 +47,7 @@ public class ProductResources {
 	}
 //	Update sản phẩm
 	@PutMapping("/products/{id}")
-	public ResponseEntity<Products> putsanPham(@PathVariable("id") Integer id, @RequestBody Products sanpham){
+	public ResponseEntity<Product> putsanPham(@PathVariable("id") Integer id, @RequestBody Product sanpham){
 		if (!spRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

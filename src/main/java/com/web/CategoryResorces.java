@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entities.Categories;
-import com.repository.DanhMucRepository;
+import com.repository.CategoryRepository;
 
 @RestController
 public class CategoryResorces {
 	
 	@Autowired
-	DanhMucRepository danhMucRepository;
+    CategoryRepository danhMucRepository;
 	
 	@GetMapping("/categories")
 	public ResponseEntity<List<Categories>> getAll(Model model){

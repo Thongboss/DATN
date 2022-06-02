@@ -20,7 +20,7 @@ public class ProductDetail {
 
     @ManyToOne
     @JoinColumn(name = "product_parent_id")
-    private Products productParent;
+    private Product productParent;
 
     @Column(name = "old_price")
     private Double oldPrice;
