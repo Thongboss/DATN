@@ -2,6 +2,8 @@ package com.entities.models;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,27 +14,24 @@ import java.util.List;
 @ToString
 @Builder
 public class UserModel implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long id;
+    private Long id;
 
-	private String username;
+    private String username;
 
-	private String password;
+    private String password;
 
-	private String fullname;
+    private String fullname;
+    private String email;
 
-	private String email;
+    private Boolean status = true;
 
-	private Date createdDate;
+    private String avatar;
 
-	private Boolean status = true;
+    private String description;
 
-	private String avatar;
+    private Integer loginFailed = 0;
 
-	private String description;
-
-	private Integer loginFailed = 0;
-
-	private List<Integer> authority;
+    private List<Integer> authority;
 }

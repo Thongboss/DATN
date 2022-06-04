@@ -6,6 +6,7 @@ import com.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     //Các URL có thể tự do truy cập //Public URLs that don't need to be authorized
     private final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
+            new AntPathRequestMatcher("/productsDetails/**", HttpMethod.GET.name()),
             new AntPathRequestMatcher("/users/login"),
             new AntPathRequestMatcher("/warehouse/**"),
             new AntPathRequestMatcher("/swagger-resources/**"),

@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
 public interface IUserService extends IBaseService<User, UserModel, Long> {
 
     Page<User> findAll(Specification specs, Pageable page);
@@ -28,4 +29,6 @@ public interface IUserService extends IBaseService<User, UserModel, Long> {
     boolean resetPassword(String resetToken, String newPassword);
     boolean tokenFilter(String token, HttpServletRequest req);
     JwtLoginResponse login(JwtUserLoginModel userLogin);
+
+    User getMyProfile();
 }
