@@ -36,14 +36,14 @@ public class ProductDetailResources {
     }
 
     @PostMapping
-    public ResponseDto createProductDetail(@RequestBody ProductDetailModel model) {
+    public ResponseDto createProductDetail(ProductDetailModel model) {
         model.setProductDetailId(null);
         return ResponseDto.of(this.productDetailService.add(model), "Add product");
     }
 
     //	Update sản phẩm
     @PutMapping("{id}")
-    public ResponseDto updateProductDetail(@PathVariable("id") long id, @RequestBody ProductDetailModel model) {
+    public ResponseDto updateProductDetail(@PathVariable("id") long id, ProductDetailModel model) {
         model.setProductDetailId(id);
         return ResponseDto.of(ProductDetailDto.toDto(this.productDetailService.update(model)), "Update product id: " + id);
     }
