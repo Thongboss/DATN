@@ -14,6 +14,7 @@ import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -36,6 +37,11 @@ public class WarehouseServiceImpl implements IWarehouseService {
     @Override
     public Page<Warehouse> findAll(Pageable page) {
         return this.warehouseRepository.findAll(page);
+    }
+
+    @Override
+    public Page<Warehouse> findAll(Pageable page, Specification<Warehouse> specifications) {
+        return null;
     }
 
     @Override

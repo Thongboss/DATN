@@ -25,7 +25,7 @@ public class Category {
     @Column(name = "category_name", length = 255, nullable = false)
     private String categoryName;
 
-    @Column(name = "slug", length = 255, nullable = false)
+    @Column(name = "slug", length = 255, nullable = false, unique = true)
     private String slug;
 
     @OneToMany(mappedBy = "category")

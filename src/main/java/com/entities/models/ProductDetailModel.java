@@ -26,6 +26,8 @@ public class ProductDetailModel {
     private Double newPrice;
     @NotNull
     private boolean status;
+
+    @NotNull
     private MultipartFile image;
     private Integer productRemain = 0;
     @NotNull
