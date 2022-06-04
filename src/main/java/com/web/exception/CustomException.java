@@ -19,7 +19,9 @@ import java.util.Map;
 public class CustomException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseDto inValidArguments(MethodArgumentNotValidException ex) {
+    public ResponseDto inValidArguments(MethodArgumentNotValidException ex)
+    {
+        ex.printStackTrace();
         Map<Object, String> errors = new HashMap<>();
         //collect errors
         for (final FieldError error : ex.getBindingResult().getFieldErrors()) {
@@ -30,6 +32,7 @@ public class CustomException {
 
     @ExceptionHandler({RuntimeException.class})
     public ResponseDto inValidArguments(RuntimeException ex) {
+        ex.printStackTrace();
         return new ResponseDto("Failed handle", "ERROR", ex.getMessage());
     }
 }
