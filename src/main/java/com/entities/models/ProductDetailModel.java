@@ -21,7 +21,6 @@ public class ProductDetailModel {
     private Long productParent;
     @NotNull
     private Double oldPrice;
-
     @NotNull
     private Double newPrice;
     @NotNull
@@ -29,6 +28,7 @@ public class ProductDetailModel {
 
     @NotNull
     private MultipartFile image;
+
     private Integer productRemain = 0;
     @NotNull
     private Long category;

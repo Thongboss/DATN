@@ -27,7 +27,7 @@ public class UnitDto {
                 .unitId(entity.getUnitId())
                 .unitCode(entity.getUnitCode())
                 .unitName(entity.getUnitName())
-                .productDetails(entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()))
+                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

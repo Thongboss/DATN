@@ -26,7 +26,7 @@ private final CountryRepository countryRepository;
 
     @Override
     public Page<Country> findAll(Pageable page) {
-        return null;
+        return this.countryRepository.findAll(page);
     }
 
     @Override

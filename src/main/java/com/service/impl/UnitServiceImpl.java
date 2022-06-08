@@ -26,7 +26,7 @@ public class UnitServiceImpl implements IUnitService {
 
     @Override
     public Page<Unit> findAll(Pageable page) {
-        return this.findAll(page);
+        return this.unitRepository.findAll(page);
     }
 
     @Override

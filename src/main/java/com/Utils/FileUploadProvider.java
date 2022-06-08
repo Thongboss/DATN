@@ -6,6 +6,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -16,15 +17,23 @@ import java.io.IOException;
 @Component
 public class FileUploadProvider {
 
-    private final String bucket = "web-datn2022";
-    private final String bucketEndpoint = "https://web-datn2022.s3.ap-southeast-1.amazonaws.com/";
+    private final String bucket;
+    private final String bucketEndpoint;
     private final AmazonS3 s3Client;
-    private final String accessKey = "AKIAZ22L6D272AAGPMFQ";
-    private final String accessSecret = "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";
-    private final String region = "ap-southeast-1";
+    private final String accessKey;
+    private final String accessSecret;
+    private final String region;
     private final Logger log = LoggerFactory.getLogger(FileUploadProvider.class);
 
-    public FileUploadProvider() {
+    private final Dotenv environment;
+
+    public FileUploadProvider(Dotenv environment) {
+        this.environment = environment;
+        this.bucket = environment.get("bucket_name");
+        this.bucketEndpoint = environment.get("bucket_endpoint");
+        this.accessKey = environment.get("access_key");
+        this.accessSecret = environment.get("secret_key");
+        this.region = environment.get("region");
         this.s3Client = amazonS3ClientBuilder().build();
     }
 

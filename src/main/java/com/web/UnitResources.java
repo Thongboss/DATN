@@ -36,7 +36,7 @@ public class UnitResources {
     }
 
     @PutMapping("{id}")
-    public ResponseDto updateUnit(@PathVariable long id, UnitModel model) {
+    public ResponseDto updateUnit(@PathVariable long id, @RequestBody UnitModel model) {
         model.setUnitId(id);
         return ResponseDto.of(UnitDto.toDto(this.unitService.update(model)), "Update unit id: " + id);
     }

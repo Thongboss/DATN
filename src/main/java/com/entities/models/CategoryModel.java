@@ -29,7 +29,7 @@ public class CategoryModel {
         if(model== null) throw new RuntimeException("CategoryModel is null");
         return Category.builder()
                 .categoryName(model.getCategoryName())
-                .slug(model.getSlug()==null ? ASCIIConverter.utf8ToAscii(model.getCategoryName()) : model.getSlug())
+                .slug(model.getSlug()==null ? ASCIIConverter.utf8ToAscii(model.getCategoryName()) : ASCIIConverter.utf8ToAscii(model.getSlug()))
                 .build();
     }
 }

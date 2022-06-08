@@ -25,7 +25,7 @@ public class BrandDto {
                 .brandId(entity.getBrandId())
                 .brandCode(entity.getBrandCode())
                 .brandName(entity.getBrandName())
-                .productDetails(entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()))
+                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

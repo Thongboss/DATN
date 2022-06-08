@@ -1,5 +1,6 @@
 package com.config;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -45,5 +46,11 @@ public class BeanConfiguration {
                         .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS");
             }
         };
+    }
+
+    @Bean
+    public Dotenv getEnv() { // method to get .env file return null if file not found else Dotenv object
+        Dotenv dotenv = Dotenv.configure().filename(".env").ignoreIfMissing().ignoreIfMalformed().load();
+        return dotenv;
     }
 }

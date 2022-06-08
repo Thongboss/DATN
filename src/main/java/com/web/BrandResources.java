@@ -6,7 +6,6 @@ import com.entities.models.BrandModel;
 import com.service.IBrandService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -36,7 +35,7 @@ public class BrandResources {
     }
 
     @PutMapping("{id}")
-    public ResponseDto updateBrand(@PathVariable long id, BrandModel model) {
+    public ResponseDto updateBrand(@PathVariable long id, @RequestBody BrandModel model) {
         model.setBrandId(id);
         return ResponseDto.of(BrandDto.toDto(this.brandService.update(model)), "Update brand id: " + id);
     }

@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import com.Utils.FileUploadProvider;
 import com.entities.ProductDetail;
 import com.entities.models.ProductDetailModel;
 import com.repository.ProductDetailRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -20,8 +22,9 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     private final IWeightService weightService;
     private final IProductService productService;
     private final ICategoryService categoryService;
+    private final FileUploadProvider fileUploadProvider;
 
-    public ProductDetailServiceImpl(ProductDetailRepository productDetailRepository, IBrandService brandService, ICountryService countryService, IUnitService unitService, IWeightService weightService, IProductService productService, ICategoryService categoryService) {
+    public ProductDetailServiceImpl(ProductDetailRepository productDetailRepository, IBrandService brandService, ICountryService countryService, IUnitService unitService, IWeightService weightService, IProductService productService, ICategoryService categoryService, FileUploadProvider fileUploadProvider) {
         this.productDetailRepository = productDetailRepository;
         this.brandService = brandService;
         this.countryService = countryService;
@@ -29,6 +32,7 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         this.weightService = weightService;
         this.productService = productService;
         this.categoryService = categoryService;
+        this.fileUploadProvider = fileUploadProvider;
     }
 
     @Override
@@ -54,6 +58,11 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     @Override
     public ProductDetail add(ProductDetailModel model) {
         ProductDetail entity = ProductDetailModel.toEntity(model);
+        try {
+            entity.setImage(fileUploadProvider.uploadFile("product", model.getImage()));
+        } catch (IOException e) {
+            throw new RuntimeException("cannot upload image");
+        }
         entity.setBrand(this.brandService.findById(model.getBrand()));
         entity.setCountry(this.countryService.findById(model.getCountry()));
         entity.setUnit(this.unitService.findById(model.getUnit()));

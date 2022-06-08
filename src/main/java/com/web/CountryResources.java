@@ -36,7 +36,7 @@ public class CountryResources {
     }
 
     @PutMapping("{id}")
-    public ResponseDto updateCountry(@PathVariable long id, CountryModel model){
+    public ResponseDto updateCountry(@PathVariable long id, @RequestBody CountryModel model){
         model.setCountryId(id);
         return ResponseDto.of(CountryDto.toDto(this.countryService.update(model)), "Update country id: " + id);
     }

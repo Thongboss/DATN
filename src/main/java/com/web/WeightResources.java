@@ -36,7 +36,7 @@ public class WeightResources {
     }
 
     @PutMapping("{id}")
-    public ResponseDto updateWeight(@PathVariable long id, WeightModel model) {
+    public ResponseDto updateWeight(@PathVariable long id, @RequestBody  WeightModel model) {
         model.setWeightId(id);
         return ResponseDto.of(WeightDto.toDto(this.weightService.update(model)), "Update weight id: " + id);
     }

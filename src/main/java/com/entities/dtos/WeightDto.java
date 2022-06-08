@@ -26,7 +26,7 @@ public class WeightDto {
                 .weightId(entity.getWeightId())
                 .weightCode(entity.getWeightCode())
                 .weightName(entity.getWeightName())
-                .productDetails(entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()))
+                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

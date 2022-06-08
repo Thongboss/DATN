@@ -26,7 +26,7 @@ public class CountryDto {
                 .countryId(entity.getCountryId())
                 .countryCode(entity.getCountryCode())
                 .countryName(entity.getCountryName())
-                .productDetails(entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()))
+                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }
