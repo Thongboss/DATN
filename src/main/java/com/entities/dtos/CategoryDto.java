@@ -24,13 +24,13 @@ public class CategoryDto {
     private String slug;
     private List<ProductDetailDto> productDetails;
 
-    public static CategoryDto toDto(Category entity ){
+    public static CategoryDto toDto(Category entity, boolean isDetail) {
         if(entity == null) return null;
         return CategoryDto.builder()
                 .categoryId(entity.getCategoryId())
                 .categoryName(entity.getCategoryName())
                 .slug(entity.getSlug())
-                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(!isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

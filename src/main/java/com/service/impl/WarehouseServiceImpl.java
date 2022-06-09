@@ -1,14 +1,18 @@
 package com.service.impl;
 
+import com.Utils.SecurityUtils;
+import com.entities.ProductDetail;
 import com.entities.User;
 import com.entities.Warehouse;
 import com.entities.WarehouseDetail;
 import com.entities.models.UserModel;
 import com.entities.models.WarehouseDetailModel;
 import com.entities.models.WarehouseModel;
+import com.repository.ProductDetailRepository;
 import com.repository.UserRepository;
 import com.repository.WarehouseDetailRepository;
 import com.repository.WarehouseRepository;
+import com.service.IProductDetailService;
 import com.service.IWarehouseService;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +32,10 @@ public class WarehouseServiceImpl implements IWarehouseService {
     WarehouseDetailRepository warehouseDetailRepository;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ProductDetailRepository productDetailRepository;
+
     @Override
     public List<Warehouse> findAll() {
         return null;
@@ -46,35 +53,38 @@ public class WarehouseServiceImpl implements IWarehouseService {
 
     @Override
     public Warehouse findById(Long id) {
-        return this.warehouseRepository.findById(id).orElseThrow(()-> new RuntimeException("Not found warehouse!"));
+        return this.warehouseRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found warehouse!"));
     }
 
     @Override
     public Warehouse add(WarehouseModel model) {
-        Warehouse warehouse = modelToEntityWarehouse(model); // convert lai tu model sang entity
-//        warehouse = this.warehouseRepository.save(warehouse);
-//        Warehouse finalWarehouse = warehouse;
-        warehouse.setWarehouseDetails(model.getWarehouseDetails().stream().map(dt->
+        Warehouse warehouse = model.getId() != null ? this.findById(model.getId()) : modelToEntityWarehouse(model); // convert lai tu model sang entity
+        warehouse.setWarehouseDetails(model.getWarehouseDetails().stream().map(dt ->
         {
-            WarehouseDetail warehouseDetail =
-            modelToEntityWarehouseDetail(dt);
+            WarehouseDetail warehouseDetail = modelToEntityWarehouseDetail(dt);
             warehouseDetail.setWarehouse(warehouse);
+            ProductDetail p = this.productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!"));
+
+            if (model.getId() != null && warehouseDetail.getId() != null) {
+                WarehouseDetail w = getWarehouseDetail(dt.getId(), warehouse.getWarehouseDetails());
+                if (w.getQuantity() > dt.getQuantity())
+                    p.setProductRemain(p.getProductRemain() - (w.getQuantity() - dt.getQuantity()));
+                else
+                    p.setProductRemain(p.getProductRemain() + (dt.getQuantity() - w.getQuantity()));
+            } else
+                p.setProductRemain(p.getProductRemain() + dt.getQuantity());
+            this.productDetailRepository.save(p);
             return warehouseDetail;
         }).collect(Collectors.toList()));
-//        warehouse.setWarehouseDetails(this.warehouseDetailRepository.saveAll(warehouse.getWarehouseDetails()));
         return this.warehouseRepository.save(warehouse);
+    }
+
+    private WarehouseDetail getWarehouseDetail(Long id, List<WarehouseDetail> list) {
+        return list.stream().filter(dt -> dt.getId() != id).findFirst().orElseThrow(() -> new RuntimeException("Not found warehouse detail!"));
     }
 
     @Override
     public Warehouse update(WarehouseModel model) {
-//        Warehouse warehouse = modelToEntityWarehouse(model);
-//        warehouse.setWarehouseDetails(model.getWarehouseDetails().stream().map(dt->
-//        {
-//            WarehouseDetail warehouseDetail =
-//                    modelToEntityWarehouseDetail(dt);
-//            warehouseDetail.setWarehouse(warehouse);
-//            return warehouseDetail;
-//        }).collect(Collectors.toList()));
         return this.add(model);
     }
 
@@ -95,12 +105,12 @@ public class WarehouseServiceImpl implements IWarehouseService {
                 .id(warehouseModel.getId())
                 .dateWarehouse(warehouseModel.getDateWarehouse())
                 .description(warehouseModel.getDescription())
-                .status(warehouseModel.getStatus())
                 .sumMoney(warehouseModel.getSumMoney())
-                .user(this.userRepository.findById(warehouseModel.getUser()).get())
+                .user(SecurityUtils.getCurrentUser().getUser())
                 .build();
 
     }
+
     public WarehouseDetail modelToEntityWarehouseDetail(WarehouseDetailModel model) {
         if (model == null) throw new RuntimeException("WarehouseModel is null");
         return WarehouseDetail.builder()

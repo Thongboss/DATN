@@ -48,7 +48,7 @@ public class ProductResources {
 
     //	Update sản phẩm
     @PutMapping("/products/{id}")
-    public ResponseDto updateProduct(@PathVariable("id") long id, @RequestBody ProductModel model) {
+    public ResponseDto updateProduct(@PathVariable("id") Long id, @RequestBody ProductModel model) {
         model.setId(id);
         return ResponseDto.of(ProductDto.toDto(this.productService.update(model)), "Update product id: " + id);
     }

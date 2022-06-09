@@ -21,7 +21,7 @@ public class WarehouseDetail implements Serializable{
     private Long id;
 
     @Column(name = "quantity", nullable = false)
-    private Long quantity;
+    private Integer quantity;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_of_manufacturee", nullable = false)
@@ -36,7 +36,6 @@ public class WarehouseDetail implements Serializable{
 //    @ManyToOne
     @Column(name = "product_details_id")
     private Long productDetailId;
-
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")

@@ -18,7 +18,7 @@ public class CountryDto {
     private String countryName;
     private List<ProductDetailDto> productDetails;
 
-    public static CountryDto toDto(Country entity) {
+    public static CountryDto toDto(Country entity, boolean isDetail) {
         if (entity == null)
             return null;
 
@@ -26,7 +26,7 @@ public class CountryDto {
                 .countryId(entity.getCountryId())
                 .countryCode(entity.getCountryCode())
                 .countryName(entity.getCountryName())
-                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(!isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

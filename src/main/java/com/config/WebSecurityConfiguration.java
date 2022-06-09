@@ -25,7 +25,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             new AntPathRequestMatcher("/productsDetails/**", HttpMethod.GET.name()),
             new AntPathRequestMatcher("/categories/**", HttpMethod.GET.name()),
             new AntPathRequestMatcher("/users/login"),
-            new AntPathRequestMatcher("/warehouse/**"),
             new AntPathRequestMatcher("/swagger-resources/**"),
             new AntPathRequestMatcher("/swagger-ui/**"),
             new AntPathRequestMatcher("/v2/api-docs"),

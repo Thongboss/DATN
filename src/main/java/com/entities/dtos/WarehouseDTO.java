@@ -39,11 +39,10 @@ public class WarehouseDTO {
                 .id(entity.getId())
                 .dateWarehouse(entity.getDateWarehouse())
                 .sumMoney(entity.getSumMoney())
-                .status(entity.getStatus())
                 .createdDate(entity.getCreatedDate())
                 .description(entity.getDescription())
                 .user(entity.getUser().getFullname())
-                .warehouseDetails(entity.getWarehouseDetails().stream().map(dt->WarehouseDetailDTO.toDto(dt)).collect(Collectors.toList()))
+                .warehouseDetails(entity.getWarehouseDetails() == null ? null : entity.getWarehouseDetails().stream().map(dt -> WarehouseDetailDTO.toDto(dt)).collect(Collectors.toList()))
                 .build();
 
     }

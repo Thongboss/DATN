@@ -29,26 +29,26 @@ public class CategoryResorces {
 
     @GetMapping("/categories")
     public ResponseDto getAll(Pageable page) {
-        return ResponseDto.of(this.categoryService.findAll(page).map(CategoryDto::toDto), "Get all categories");
+        return ResponseDto.of(this.categoryService.findAll(page).map(c->CategoryDto.toDto(c, false)), "Get all categories");
     }
 
     @GetMapping("/categories/{id}")
     public ResponseDto getById(@PathVariable("id") long id) {
 //	Kiểm tra kết quả trả về có tồn tại hay không
-        return ResponseDto.of(CategoryDto.toDto(this.categoryService.findById(id)), "Get category id: " + id);
+        return ResponseDto.of(CategoryDto.toDto(this.categoryService.findById(id),false), "Get category id: " + id);
     }
 
     @PostMapping("/categories")
     public ResponseDto createCategory(@RequestBody CategoryModel model) {
 //		Kiểm tra Id có tồn tại hay không
         model.setCategoryId(null);
-        return ResponseDto.of(CategoryDto.toDto(this.categoryService.add(model)), "Add category");
+        return ResponseDto.of(CategoryDto.toDto(this.categoryService.add(model),false), "Add category");
     }
 
     @PutMapping("/categories/{id}")
     public ResponseDto updateCategory(@PathVariable("id") long id, @RequestBody CategoryModel model) {
         model.setCategoryId(id);
-        return ResponseDto.of(CategoryDto.toDto(this.categoryService.update(model)), "Update category id: " + id);
+        return ResponseDto.of(CategoryDto.toDto(this.categoryService.update(model),false), "Update category id: " + id);
     }
 
     @DeleteMapping("/categories/{id}")

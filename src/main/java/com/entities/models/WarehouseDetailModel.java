@@ -15,7 +15,7 @@ public class WarehouseDetailModel implements Serializable {
 
     private Long id;
 
-    private Long quantity;
+    private Integer quantity;
 
     private Date dateOfManufacture;
 

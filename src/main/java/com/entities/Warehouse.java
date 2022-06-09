@@ -34,18 +34,13 @@ public class Warehouse implements Serializable {
     @CreationTimestamp
     private Date createdDate;
 
-    @Column(name = "status", length = 50)
-    private String status;
-
-
     @Column(name = "description", length = 1000)
     private String description;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, orphanRemoval = true)
     List<WarehouseDetail> warehouseDetails;
 }

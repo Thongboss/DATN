@@ -19,13 +19,13 @@ public class BrandDto {
     private String brandName;
     private List<ProductDetailDto> productDetails;
 
-    public static BrandDto toDto(Brand entity) {
+    public static BrandDto toDto(Brand entity, boolean isDetail) {
         if (entity == null) return null;
         return BrandDto.builder()
                 .brandId(entity.getBrandId())
                 .brandCode(entity.getBrandCode())
                 .brandName(entity.getBrandName())
-                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(!isDetail ? null : entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

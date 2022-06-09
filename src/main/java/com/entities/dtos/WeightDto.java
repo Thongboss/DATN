@@ -19,14 +19,14 @@ public class WeightDto {
     private String weightName;
     private List<ProductDetailDto> productDetails;
 
-    public static WeightDto toDto(Weight entity) {
+    public static WeightDto toDto(Weight entity, boolean isDetail) {
         if (entity == null)
             return null;
         return WeightDto.builder()
                 .weightId(entity.getWeightId())
                 .weightCode(entity.getWeightCode())
                 .weightName(entity.getWeightName())
-                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(!isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

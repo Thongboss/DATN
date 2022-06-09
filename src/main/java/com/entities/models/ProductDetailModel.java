@@ -23,8 +23,6 @@ public class ProductDetailModel {
     private Double oldPrice;
     @NotNull
     private Double newPrice;
-    @NotNull
-    private boolean status;
 
     @NotNull
     private MultipartFile image;
@@ -47,8 +45,6 @@ public class ProductDetailModel {
                 .productDetailId(model.getProductDetailId())
                 .oldPrice(model.getOldPrice())
                 .newPrice(model.getNewPrice())
-                .status(model.isStatus())
-                .productRemain(model.getProductRemain())
                 .build();
     }
 }

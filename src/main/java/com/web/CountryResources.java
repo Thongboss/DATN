@@ -1,5 +1,6 @@
 package com.web;
 
+import com.entities.dtos.CategoryDto;
 import com.entities.dtos.CountryDto;
 import com.entities.dtos.ResponseDto;
 import com.entities.models.CountryModel;
@@ -22,23 +23,23 @@ public class CountryResources {
 
     @GetMapping
     public ResponseDto getAll(Pageable page){
-        return ResponseDto.of(this.countryService.findAll(page).map(CountryDto::toDto), "Get all countries");
+        return ResponseDto.of(this.countryService.findAll(page).map(c-> CountryDto.toDto(c, false)), "Get all countries");
     }
 
     @GetMapping("{id}")
     public ResponseDto getCountry(@PathVariable long id){
-        return ResponseDto.of(CountryDto.toDto(this.countryService.findById(id)), "Get country id: " + id);
+        return ResponseDto.of(CountryDto.toDto(this.countryService.findById(id), false), "Get country id: " + id);
     }
     @PostMapping
     private ResponseDto createCountry(@RequestBody CountryModel model){
         model.setCountryId(null);
-        return ResponseDto.of(CountryDto.toDto(this.countryService.add(model)), "Add country");
+        return ResponseDto.of(CountryDto.toDto(this.countryService.add(model), false), "Add country");
     }
 
     @PutMapping("{id}")
     public ResponseDto updateCountry(@PathVariable long id, @RequestBody CountryModel model){
         model.setCountryId(id);
-        return ResponseDto.of(CountryDto.toDto(this.countryService.update(model)), "Update country id: " + id);
+        return ResponseDto.of(CountryDto.toDto(this.countryService.update(model), false), "Update country id: " + id);
     }
 
     @DeleteMapping("{id}")

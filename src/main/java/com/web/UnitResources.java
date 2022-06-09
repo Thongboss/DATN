@@ -21,24 +21,24 @@ public class UnitResources {
 
     @GetMapping
     public ResponseDto getAll(Pageable page) {
-        return ResponseDto.of(this.unitService.findAll(page).map(UnitDto::toDto), "Get all units");
+        return ResponseDto.of(this.unitService.findAll(page).map(u-> UnitDto.toDto(u, false)), "Get all units");
     }
 
     @GetMapping("{id}")
     public ResponseDto getUnit(@PathVariable long id) {
-        return ResponseDto.of(UnitDto.toDto(this.unitService.findById(id)), "Get unit id: " + id);
+        return ResponseDto.of(UnitDto.toDto(this.unitService.findById(id), true), "Get unit id: " + id);
     }
 
     @PostMapping
     private ResponseDto createUnit(@RequestBody UnitModel model) {
         model.setUnitId(null);
-        return ResponseDto.of(UnitDto.toDto(this.unitService.add(model)), "Add unit");
+        return ResponseDto.of(UnitDto.toDto(this.unitService.add(model), false), "Add unit");
     }
 
     @PutMapping("{id}")
     public ResponseDto updateUnit(@PathVariable long id, @RequestBody UnitModel model) {
         model.setUnitId(id);
-        return ResponseDto.of(UnitDto.toDto(this.unitService.update(model)), "Update unit id: " + id);
+        return ResponseDto.of(UnitDto.toDto(this.unitService.update(model), false), "Update unit id: " + id);
     }
 
     @DeleteMapping("{id}")

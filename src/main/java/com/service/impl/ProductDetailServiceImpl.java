@@ -57,18 +57,27 @@ public class ProductDetailServiceImpl implements IProductDetailService {
 
     @Override
     public ProductDetail add(ProductDetailModel model) {
-        ProductDetail entity = ProductDetailModel.toEntity(model);
-        try {
-            entity.setImage(fileUploadProvider.uploadFile("product", model.getImage()));
-        } catch (IOException e) {
-            throw new RuntimeException("cannot upload image");
-        }
+        ProductDetail entity = model.getProductDetailId() != null ? this.findById(model.getProductDetailId()) : ProductDetailModel.toEntity(model);
         entity.setBrand(this.brandService.findById(model.getBrand()));
         entity.setCountry(this.countryService.findById(model.getCountry()));
+        entity.setStatus(true);
         entity.setUnit(this.unitService.findById(model.getUnit()));
         entity.setWeight(this.weightService.findById(model.getWeight()));
         entity.setProductParent(this.productService.findById(model.getProductParent()));
         entity.setCategory(this.categoryService.findById(model.getCategory()));
+        entity.setProductRemain(entity.getProductDetailId() == null ? 0 : entity.getProductRemain());
+        entity = this.productDetailRepository.save(entity);
+
+        try {
+            if (model.getImage() != null) {
+                if (entity.getImage() != null)
+                    this.fileUploadProvider.deleteFile(entity.getImage());
+                entity.setImage(fileUploadProvider.uploadFile("product/".concat(entity.getProductDetailId().toString()), model.getImage()));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("cannot upload image");
+        }
+
         return this.productDetailRepository.save(entity);
     }
 
@@ -79,7 +88,9 @@ public class ProductDetailServiceImpl implements IProductDetailService {
 
     @Override
     public boolean deleteById(Long id) {
-        this.productDetailRepository.deleteById(id);
+        ProductDetail en = this.findById(id);
+        en.setStatus(false);
+        this.productDetailRepository.save(en);
         return true;
     }
 

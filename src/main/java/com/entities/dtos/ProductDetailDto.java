@@ -17,7 +17,6 @@ public class ProductDetailDto {
     private ProductDto productParent;
     private Double oldPrice;
     private Double newPrice;
-    private Boolean status;
     private String image;
     private Integer productRemain;
     private CategoryDto category;
@@ -35,14 +34,13 @@ public class ProductDetailDto {
                 .productParent(ProductDto.toDto(entity.getProductParent()))
                 .oldPrice(entity.getOldPrice())
                 .newPrice(entity.getNewPrice())
-                .status(entity.getStatus())
                 .image(entity.getImage())
                 .productRemain(entity.getProductRemain())
-                .category(CategoryDto.toDto(entity.getCategory()))
-                .brand(BrandDto.toDto(entity.getBrand()))
-                .country(CountryDto.toDto(entity.getCountry()))
-                .unit(UnitDto.toDto(entity.getUnit()))
-                .weight(WeightDto.toDto(entity.getWeight()))
+                .category(CategoryDto.toDto(entity.getCategory(), false))
+                .brand(BrandDto.toDto(entity.getBrand(), false))
+                .country(CountryDto.toDto(entity.getCountry(), false))
+                .unit(UnitDto.toDto(entity.getUnit(), false))
+                .weight(WeightDto.toDto(entity.getWeight(), false))
                 .createdDate(entity.getCreatedDate())
                 .updatedDate(entity.getUpdatedDate())
                 .build();

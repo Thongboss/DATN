@@ -21,24 +21,24 @@ public class WeightResources {
 
     @GetMapping
     public ResponseDto getAll(Pageable page) {
-        return ResponseDto.of(this.weightService.findAll(page).map(WeightDto::toDto), "Get all weights");
+        return ResponseDto.of(this.weightService.findAll(page).map(w-> WeightDto.toDto(w, false)), "Get all weights");
     }
 
     @GetMapping("{id}")
     public ResponseDto getWeight(@PathVariable long id) {
-        return ResponseDto.of(WeightDto.toDto(this.weightService.findById(id)), "Get weight id: " + id);
+        return ResponseDto.of(WeightDto.toDto(this.weightService.findById(id), false), "Get weight id: " + id);
     }
 
     @PostMapping
     private ResponseDto createWeight(@RequestBody WeightModel model) {
         model.setWeightId(null);
-        return ResponseDto.of(WeightDto.toDto(this.weightService.add(model)), "Add weight");
+        return ResponseDto.of(WeightDto.toDto(this.weightService.add(model), false), "Add weight");
     }
 
     @PutMapping("{id}")
     public ResponseDto updateWeight(@PathVariable long id, @RequestBody  WeightModel model) {
         model.setWeightId(id);
-        return ResponseDto.of(WeightDto.toDto(this.weightService.update(model)), "Update weight id: " + id);
+        return ResponseDto.of(WeightDto.toDto(this.weightService.update(model), false), "Update weight id: " + id);
     }
 
     @DeleteMapping("{id}")

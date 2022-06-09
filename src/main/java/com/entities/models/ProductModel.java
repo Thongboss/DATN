@@ -18,18 +18,16 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 public class ProductModel {
-	
 	private Long id;
-
 	@NotNull
 	@NotBlank
 	private String productName;
-	
 	private String description;
 
 	public static Product toEntity(ProductModel model) {
 		if (model == null) throw new RuntimeException("ProductModel is null");
 		return Product.builder()
+				.id(model.getId())
 				.productName(model.getProductName())
 				.description(model.getDescription())
 				.build();

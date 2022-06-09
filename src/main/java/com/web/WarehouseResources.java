@@ -9,6 +9,7 @@ import com.service.IWarehouseService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,11 +27,11 @@ public class WarehouseResources {
         return ResponseDto.of(this.warehouseService.findAll(page).map(w -> WarehouseDTO.toDto(w)),"list warehouse");
     }
     @PostMapping
-    public ResponseDto addWarehouse(@RequestBody WarehouseModel model){
+    public ResponseDto addWarehouse(@RequestBody @Valid WarehouseModel model){
         return ResponseDto.of(WarehouseDTO.toDto(this.warehouseService.add(model)), "Add new Warehouse");
     }
     @PutMapping
-    public ResponseDto updateWarehouse(@RequestBody WarehouseModel model){
+    public ResponseDto updateWarehouse(@RequestBody @Valid WarehouseModel model){
         return ResponseDto.of(WarehouseDTO.toDto(this.warehouseService.update(model)), "update Warehouse");
     }
     @DeleteMapping("{id}")

@@ -20,14 +20,14 @@ public class UnitDto {
     private String unitName;
     private List<ProductDetailDto> productDetails;
 
-    public static UnitDto toDto(Unit entity) {
+    public static UnitDto toDto(Unit entity, boolean isDetail) {
         if (entity == null)
             return null;
         return UnitDto.builder()
                 .unitId(entity.getUnitId())
                 .unitCode(entity.getUnitCode())
                 .unitName(entity.getUnitName())
-                .productDetails(entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(!isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

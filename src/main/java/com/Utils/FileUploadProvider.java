@@ -35,6 +35,8 @@ public class FileUploadProvider {
         this.accessSecret = environment.get("secret_key");
         this.region = environment.get("region");
         this.s3Client = amazonS3ClientBuilder().build();
+
+        System.out.println(this.s3Client == null);
     }
 
     public String uploadFile(String folder, MultipartFile file) throws IOException {
@@ -62,9 +64,11 @@ public class FileUploadProvider {
             return false;
         }
     }
-    public void deleteFile(String key){
-        System.out.println("Delete File: "+ key);
-        this.s3Client.deleteObject(this.bucket,key.replace(this.bucketEndpoint, ""));
+
+    public void deleteFile(String key) {
+        System.out.println("Delete File: " + key);
+        if (key != null)
+            this.s3Client.deleteObject(this.bucket, key.replace(this.bucketEndpoint, ""));
     }
 
     public AmazonS3ClientBuilder amazonS3ClientBuilder() {

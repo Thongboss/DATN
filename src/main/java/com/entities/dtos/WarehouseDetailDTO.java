@@ -16,7 +16,7 @@ import java.util.Date;
 public class WarehouseDetailDTO {
     private Long id;
 
-    private Long quantity;
+    private Integer quantity;
 
     private Date dateOfManufacture;
 
