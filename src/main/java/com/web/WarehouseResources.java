@@ -28,10 +28,12 @@ public class WarehouseResources {
     }
     @PostMapping
     public ResponseDto addWarehouse(@RequestBody @Valid WarehouseModel model){
+        model.setId(null);
         return ResponseDto.of(WarehouseDTO.toDto(this.warehouseService.add(model)), "Add new Warehouse");
     }
-    @PutMapping
-    public ResponseDto updateWarehouse(@RequestBody @Valid WarehouseModel model){
+    @PutMapping("{id}")
+    public ResponseDto updateWarehouse(@PathVariable Long id, @RequestBody @Valid WarehouseModel model){
+        model.setId(id);
         return ResponseDto.of(WarehouseDTO.toDto(this.warehouseService.update(model)), "update Warehouse");
     }
     @DeleteMapping("{id}")

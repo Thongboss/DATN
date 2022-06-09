@@ -42,5 +42,5 @@ public class Warehouse implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<WarehouseDetail> warehouseDetails;
+    private List<WarehouseDetail> warehouseDetails;
 }

@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,28 +60,41 @@ public class WarehouseServiceImpl implements IWarehouseService {
     @Override
     public Warehouse add(WarehouseModel model) {
         Warehouse warehouse = model.getId() != null ? this.findById(model.getId()) : modelToEntityWarehouse(model); // convert lai tu model sang entity
-        warehouse.setWarehouseDetails(model.getWarehouseDetails().stream().map(dt ->
-        {
-            WarehouseDetail warehouseDetail = modelToEntityWarehouseDetail(dt);
-            warehouseDetail.setWarehouse(warehouse);
-            ProductDetail p = this.productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!"));
+        List<WarehouseDetail> originalWarehouseDetails = List.copyOf(warehouse.getWarehouseDetails());
 
-            if (model.getId() != null && warehouseDetail.getId() != null) {
-                WarehouseDetail w = getWarehouseDetail(dt.getId(), warehouse.getWarehouseDetails());
-                if (w.getQuantity() > dt.getQuantity())
-                    p.setProductRemain(p.getProductRemain() - (w.getQuantity() - dt.getQuantity()));
+        if (model.getId() != null)
+            warehouse.getWarehouseDetails().clear();
+        List<WarehouseDetail> newWarehouseDt = model.getWarehouseDetails().stream().map(dt ->
+        {
+            WarehouseDetail warehouseDetail;
+            ProductDetail p = this.productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!"));
+            if (model.getId() != null && dt.getId() != null) {
+                warehouseDetail = getWarehouseDetail(dt.getId(), originalWarehouseDetails);
+                if (warehouseDetail.getQuantity() > dt.getQuantity())
+                    p.setProductRemain(p.getProductRemain() - (warehouseDetail.getQuantity() - dt.getQuantity()));
                 else
-                    p.setProductRemain(p.getProductRemain() + (dt.getQuantity() - w.getQuantity()));
-            } else
+                    p.setProductRemain(p.getProductRemain() + (dt.getQuantity() - warehouseDetail.getQuantity()));
+                warehouseDetail.setId(dt.getId());
+                warehouseDetail.setQuantity(dt.getQuantity());
+            } else {
                 p.setProductRemain(p.getProductRemain() + dt.getQuantity());
+                warehouseDetail = modelToEntityWarehouseDetail(dt);
+                warehouseDetail.setWarehouse(warehouse);
+            }
             this.productDetailRepository.save(p);
             return warehouseDetail;
-        }).collect(Collectors.toList()));
+        }).collect(Collectors.toList());
+
+        if (model.getId() == null)
+            warehouse.setWarehouseDetails(newWarehouseDt);
+        else
+            warehouse.getWarehouseDetails().addAll(newWarehouseDt);
+
         return this.warehouseRepository.save(warehouse);
     }
 
     private WarehouseDetail getWarehouseDetail(Long id, List<WarehouseDetail> list) {
-        return list.stream().filter(dt -> dt.getId() != id).findFirst().orElseThrow(() -> new RuntimeException("Not found warehouse detail!"));
+        return list.stream().filter(dt -> dt.getId() == id).findFirst().orElseThrow(() -> new RuntimeException("Not found warehouse detail!"));
     }
 
     @Override

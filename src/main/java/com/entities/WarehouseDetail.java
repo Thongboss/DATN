@@ -38,6 +38,5 @@ public class WarehouseDetail implements Serializable{
     private Long productDetailId;
 
     @ManyToOne
-    @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 }
