@@ -1,5 +1,6 @@
 package com.entities;
 
+import com.entities.dtos.UserDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -53,4 +54,16 @@ public class User implements Serializable {
     @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorityFilter;
+
+    //Entity to Dto
+    public static User toEntity(UserDto dto) {
+        if (dto == null) throw new RuntimeException("Entity is null");
+        return User.builder()
+                .id(dto.getId())
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .avatar(dto.getAvatar())
+                .createdDate(dto.getCreatedDate())
+                .build();
+    }
 }

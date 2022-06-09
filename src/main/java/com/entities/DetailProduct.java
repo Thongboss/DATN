@@ -1,5 +1,7 @@
-package com.entities.models;
+package com.entities;
 
+import com.entities.models.CategoryModel;
+import com.entities.models.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

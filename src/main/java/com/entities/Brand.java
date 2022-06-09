@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Entity
-@Table(name = "brand")
+@Table(name = "brands")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

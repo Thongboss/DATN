@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.entities.models.DetailProduct;
+import com.entities.DetailProduct;
 import com.repository.DetailProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
