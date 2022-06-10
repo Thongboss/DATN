@@ -38,7 +38,7 @@ public class SanPhamController {
 	@GetMapping("/sanpham/{danhMucId}")
 	public ResponseEntity<List<ProductModel>> getByDanhMuc(@PathVariable("id") Integer id){
 //		Kiểm tra kết quả trả về có tồn tại hay không
-		List<ProductModel> danhSachSanPham = sanPhamService.getByDanhMuc(id);
+		List<ProductModel> danhSachSanPham = sanPhamService.getByCategory(id);
 		if (danhSachSanPham.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
