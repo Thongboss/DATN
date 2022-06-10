@@ -1,5 +1,7 @@
 package com.entities;
 
+import com.entities.dtos.OrderDetailDto;
+import com.entities.dtos.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,4 +29,6 @@ public class OrderDetail {
     private Integer quantity;
     @JoinColumn(name = "price")
     private Double price;
+
+
 }

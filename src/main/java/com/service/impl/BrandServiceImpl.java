@@ -21,7 +21,7 @@ public class BrandServiceImpl implements BrandService {
         this.repository = repository;
     }
 
-    @Transactional
+
     @Override
     public ResponseDto insert(BrandDto dto) {
         Brand entity = initBrand(dto);

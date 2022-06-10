@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import com.entities.OrderDetail;
 import com.entities.Orders;
 
 import com.entities.User;
@@ -25,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public ResponseDto insert(OrderDto dto) {
-        Orders entity = initBill(dto);
+        Orders entity = initOder(dto);
         try {
             entity = repository.save(entity);
             return new ResponseDto("Insert successfully", null,entity);
@@ -42,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
         }
         try {
             Orders entity = repository.getReferenceById(id);
-            entity = initBill(dto);
+            entity = initOder(dto);
             entity = repository.save(entity);
             return new ResponseDto("update successfully", null,entity);
         }
@@ -55,12 +56,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ResponseDto deleteById(String id) {
         if (id == null) {
-            return new ResponseDto("Bill not found", null, null);
+            return new ResponseDto("OrderDetail not found", null, null);
         }
 
         Orders removalEntity = repository.getById(id);
         repository.deleteById(id);
-        return new ResponseDto("Bill was deleted", null, removalEntity);
+        return new ResponseDto("OrderDetail was deleted", null, removalEntity);
     }
 
     @Transactional
@@ -72,9 +73,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    private static Orders initBill(OrderDto dto) {
+    private static Orders initOder(OrderDto dto) {
         return Orders.builder()
-                .codeBill(dto.getCodeBill())
+                .codeOrder(dto.getCodeOrder())
                 .dateFounded(dto.getDateFounded())
                 .totalMoney(dto.getTotalMoney())
                 .note(dto.getNote())
