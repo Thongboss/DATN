@@ -1,7 +1,6 @@
 package com.entities;
 
-import com.entities.dtos.BillDto;
-import com.entities.dtos.UserDto;
+import com.entities.dtos.OrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,16 +16,17 @@ import java.util.Date;
 @Entity
 @Table(name = "bills")
 @Builder
-public class Bill {
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codeBill")
-    private String codeBill;
+    private Long id;
+    @Column(name = "codeOrder",unique = true)
+    private String codeOrder;
     @Column(name = "dateFounded")
     private Date dateFounded;
     @Column(name = "totalMoney")
-    private float totalMoney;
+    private Float totalMoney;
     @Column(name = "note")
     private String note;
     @Column(name = "status")
@@ -37,15 +38,17 @@ public class Bill {
     private String payments;
     @Column(name="phoneNumber")
     private String phoneNumber;
-    @Column(name = "phoneNumber")
+    @Column(name = "address")
     private String address;
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "detailProduct")
+    List<OrderDetail> billDetailList ;
 
-    public Bill toEntity(BillDto dto) {
+    public Orders toEntity(OrderDto dto) {
         if (dto == null) {
             throw new RuntimeException("Entity is null");
         }
-        return Bill.builder()
-                .codeBill(dto.getCodeBill())
+        return Orders.builder()
+                .codeOrder(dto.getCodeOrder())
                 .dateFounded(dto.getDateFounded())
                 .totalMoney(dto.getTotalMoney())
                 .note(dto.getNote())

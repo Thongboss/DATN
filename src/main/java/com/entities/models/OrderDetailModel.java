@@ -1,8 +1,10 @@
 package com.entities.models;
+import com.entities.DetailProduct;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,14 +15,18 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "bills")
 @Builder
-public class BillDetailModel {
+public class OrderDetailModel {
     @Id
     @GeneratedValue
     @NotNull
-    private int id;
+    private Long id;
     @NotNull
-    private
-
-
+    private Long id_order;
+    @NotNull
+    private Long id_detailProduct;
+    @NotNull
+    private Long quantity;
+    @NotNull
+    private Long price;
 
 }

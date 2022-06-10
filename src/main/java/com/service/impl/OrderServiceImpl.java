@@ -1,31 +1,31 @@
 package com.service.impl;
 
-import com.entities.Bill;
+import com.entities.Orders;
 
 import com.entities.User;
-import com.entities.dtos.BillDto;
+import com.entities.dtos.OrderDto;
 
 import com.entities.dtos.ResponseDto;
-import com.repository.BillRepository;
-import com.service.BillService;
+import com.repository.OrderRepository;
+import com.service.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class BillServiceImpl implements BillService {
-    private final BillService service;
-    private final BillRepository repository;
+public class OrderServiceImpl implements OrderService {
+    private final OrderService service;
+    private final OrderRepository repository;
 
-    public BillServiceImpl(BillService service, BillRepository repository) {
+    public OrderServiceImpl(OrderService service, OrderRepository repository) {
         this.service = service;
         this.repository = repository;
     }
     @Transactional
     @Override
-    public ResponseDto insert(BillDto dto) {
-        Bill entity = initBill(dto);
+    public ResponseDto insert(OrderDto dto) {
+        Orders entity = initBill(dto);
         try {
             entity = repository.save(entity);
             return new ResponseDto("Insert successfully", null,entity);
@@ -36,12 +36,12 @@ public class BillServiceImpl implements BillService {
     }
     @Transactional
     @Override
-    public ResponseDto update(String id, BillDto dto) {
+    public ResponseDto update(String id, OrderDto dto) {
         if (id == null) {
             return new ResponseDto("Bill not found", null, null);
         }
         try {
-            Bill entity = repository.getReferenceById(id);
+            Orders entity = repository.getReferenceById(id);
             entity = initBill(dto);
             entity = repository.save(entity);
             return new ResponseDto("update successfully", null,entity);
@@ -58,7 +58,7 @@ public class BillServiceImpl implements BillService {
             return new ResponseDto("Bill not found", null, null);
         }
 
-        Bill removalEntity = repository.getById(id);
+        Orders removalEntity = repository.getById(id);
         repository.deleteById(id);
         return new ResponseDto("Bill was deleted", null, removalEntity);
     }
@@ -66,14 +66,14 @@ public class BillServiceImpl implements BillService {
     @Transactional
     @Override
     public ResponseDto getAll() {
-        List<Bill> bills = repository.findAll();
+        List<Orders> bills = repository.findAll();
 
         return new ResponseDto("successfully", null, bills);
     }
 
 
-    private static Bill initBill(BillDto dto) {
-        return Bill.builder()
+    private static Orders initBill(OrderDto dto) {
+        return Orders.builder()
                 .codeBill(dto.getCodeBill())
                 .dateFounded(dto.getDateFounded())
                 .totalMoney(dto.getTotalMoney())

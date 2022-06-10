@@ -1,6 +1,6 @@
 package com.entities.models;
 
-import com.entities.Bill;
+import com.entities.Orders;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,20 +14,20 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BillModel {
+public class OrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String codeBill;
+    private String codeOder;
     @NotNull
     private Date dateFounded;
     @NotNull
-    private float totalMoney;
+    private Float totalMoney;
 
     private String note;
     @NotNull
     private String status;
     @NotNull
-    private Bill id_User;
+    private Orders id_User;
     @NotNull
     private String payments;
     @NotNull

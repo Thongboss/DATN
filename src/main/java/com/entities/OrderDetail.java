@@ -6,25 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "billdetails")
 @Builder
-public class BillDetail {
+public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private Long ID;
     @ManyToOne
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
-    @OneToMany
-    @JoinColumn(name = "product_detail")
+    @JoinColumn(name = "order_id")
+    private Orders order;
+    @ManyToOne
     private DetailProduct detailProduct;
     @JoinColumn(name = "quantity")
-    private int quantity;
+    private Integer quantity;
     @JoinColumn(name = "price")
-    private float price;
+    private Double price;
 }

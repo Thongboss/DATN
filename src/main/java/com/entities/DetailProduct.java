@@ -17,7 +17,7 @@ public class DetailProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "gia")
     private Double gia;
@@ -39,11 +39,11 @@ public class DetailProduct {
     @JoinColumn(name = "danh_muc_id")
     private CategoryModel danhMuc;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
