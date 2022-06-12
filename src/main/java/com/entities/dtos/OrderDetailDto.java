@@ -1,19 +1,18 @@
 package com.entities.dtos;
 
-import com.entities.Brand;
 import com.entities.OrderDetail;
-import com.entities.Orders;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Getter
 public class OrderDetailDto {
     private Long id;
-    private Long id_order;
-    private Long id_detailProduct;
+    private ProductDetailDto detailProduct;
     private Integer quantity;
     private Double price;
 
@@ -22,9 +21,8 @@ public class OrderDetailDto {
             throw new RuntimeException("Entity is null");
         }
         return OrderDetailDto.builder()
-                .id(entity.getID())
-                .id_order(entity.getOrder().getId())
-                .id_detailProduct(entity.getDetailProduct().getId())
+                .id(entity.getId())
+                .detailProduct(ProductDetailDto.toDto(entity.getDetailProduct()))
                 .quantity(entity.getQuantity())
                 .price(entity.getPrice())
                 .build();

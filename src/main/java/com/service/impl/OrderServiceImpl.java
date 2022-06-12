@@ -1,88 +1,68 @@
 package com.service.impl;
 
-import com.entities.OrderDetail;
-import com.entities.Orders;
+import com.config.jwt.JwtProvider;
 
-import com.entities.User;
-import com.entities.dtos.OrderDto;
-
-import com.entities.dtos.ResponseDto;
+import com.entities.Order;
+import com.entities.models.OrderModel;
+import com.repository.OrderDetailRepository;
 import com.repository.OrderRepository;
-import com.service.OrderService;
+import com.service.IOrderService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService {
-    private final OrderService service;
-    private final OrderRepository repository;
+public class OrderServiceImpl implements IOrderService {
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final JwtProvider jwtProvider;
 
-    public OrderServiceImpl(OrderService service, OrderRepository repository) {
-        this.service = service;
-        this.repository = repository;
+    public OrderServiceImpl(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, JwtProvider jwtProvider) {
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
+        this.jwtProvider = jwtProvider;
     }
-    @Transactional
+
     @Override
-    public ResponseDto insert(OrderDto dto) {
-        Orders entity = initOder(dto);
-        try {
-            entity = repository.save(entity);
-            return new ResponseDto("Insert successfully", null,entity);
-        }
-        catch (Exception e) {
-            return new ResponseDto("Can't insert bill", null, null);
-        }
+    public List<Order> findAll() {
+        return null;
     }
-    @Transactional
+
     @Override
-    public ResponseDto update(String id, OrderDto dto) {
-        if (id == null) {
-            return new ResponseDto("Bill not found", null, null);
-        }
-        try {
-            Orders entity = repository.getReferenceById(id);
-            entity = initOder(dto);
-            entity = repository.save(entity);
-            return new ResponseDto("update successfully", null,entity);
-        }
-        catch (Exception e) {
-            return new ResponseDto("Can't insert Bill", null, null);
-        }
+    public Page<Order> findAll(Pageable page) {
+        return null;
     }
 
-    @Transactional
     @Override
-    public ResponseDto deleteById(String id) {
-        if (id == null) {
-            return new ResponseDto("OrderDetail not found", null, null);
-        }
-
-        Orders removalEntity = repository.getById(id);
-        repository.deleteById(id);
-        return new ResponseDto("OrderDetail was deleted", null, removalEntity);
+    public Page<Order> findAll(Pageable page, Specification<Order> specifications) {
+        return null;
     }
 
-    @Transactional
     @Override
-    public ResponseDto getAll() {
-        List<Orders> bills = repository.findAll();
-
-        return new ResponseDto("successfully", null, bills);
+    public Order findById(Long id) {
+        return null;
     }
 
+    @Override
+    public Order add(OrderModel model) {
+        return null;
+    }
 
-    private static Orders initOder(OrderDto dto) {
-        return Orders.builder()
-                .codeOrder(dto.getCodeOrder())
-                .dateFounded(dto.getDateFounded())
-                .totalMoney(dto.getTotalMoney())
-                .note(dto.getNote())
-                .status(dto.getStatus())
-                .user(User.toEntity(dto.getUser()))
-                .payments(dto.getPayments())
-                .phoneNumber(dto.getPhoneNumber())
-                .address(dto.getAddress())
-                .build();
-}}
+    @Override
+    public Order update(OrderModel model) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteByIds(List<Long> id) {
+        return false;
+    }
+}

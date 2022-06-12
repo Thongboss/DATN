@@ -1,32 +1,34 @@
 package com.entities.models;
-import com.entities.DetailProduct;
+
+import com.entities.OrderDetail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.criterion.Order;
 
-import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "bills")
 @Builder
 public class OrderDetailModel {
-    @Id
-    @GeneratedValue
-    @NotNull
     private Long id;
     @NotNull
-    private Long id_order;
-    @NotNull
-    private Long id_detailProduct;
-    @NotNull
-    private Long quantity;
-    @NotNull
-    private Long price;
+    private Long detailProduct;
 
+    @NotNull
+    @Min(1)
+    private Integer quantity;
+
+    public static OrderDetail toEntity(OrderDetailModel model){
+        if(model == null){
+            throw new RuntimeException("Entity is null");
+        }
+        return OrderDetail.builder()
+                .id(model.getId())
+                .quantity(model.getQuantity())
+                .build();
+    }
 }

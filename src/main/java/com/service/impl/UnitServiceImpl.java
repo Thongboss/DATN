@@ -49,7 +49,6 @@ public class UnitServiceImpl implements IUnitService {
     public Unit update(UnitModel model) {
         Unit original = this.findById(model.getUnitId());
         original.setUnitId(model.getUnitId());
-        original.setUnitCode(model.getUnitCode());
         original.setUnitName(model.getUnitName());
         return this.unitRepository.save(original);
     }

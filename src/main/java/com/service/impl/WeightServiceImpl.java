@@ -49,7 +49,6 @@ public class WeightServiceImpl implements IWeightService {
     public Weight update(WeightModel model) {
         Weight original = this.findById(model.getWeightId());
         original.setWeightId(model.getWeightId());
-        original.setWeightCode(model.getWeightCode());
         original.setWeightName(model.getWeightName());
         return this.weightRepository.save(original);
     }

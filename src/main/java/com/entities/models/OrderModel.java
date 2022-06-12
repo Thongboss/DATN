@@ -1,38 +1,49 @@
 package com.entities.models;
 
-import com.entities.Orders;
+import com.entities.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class OrderModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String codeOder;
-    @NotNull
-    private Date dateFounded;
-    @NotNull
-    private Float totalMoney;
-
+    private Long id;
+    private String orderGuid;
     private String note;
     @NotNull
-    private String status;
+    @NotBlank
+    private String paymentMethod;
     @NotNull
-    private Orders id_User;
-    @NotNull
-    private String payments;
-    @NotNull
+    @NotBlank
     private String phoneNumber;
     @NotNull
+    @NotBlank
     private String address;
+
+    @NotNull
+    private List<OrderDetailModel> orderDetails;
+
+    public Order toEntity(OrderModel model) {
+        if (model == null) {
+            throw new RuntimeException("Entity is null");
+        }
+        return Order.builder()
+                .id(model.getId())
+                .orderGuid(model.getId() != null ? model.getOrderGuid() : UUID.randomUUID().toString())
+                .note(model.getNote())
+                .paymentMethod(model.getPaymentMethod())
+                .phoneNumber(model.getPhoneNumber())
+                .address(model.getAddress())
+                .build();
+    }
 
 }

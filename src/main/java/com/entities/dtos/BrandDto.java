@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Builder
 public class BrandDto {
     private Long brandId;
-    private String brandCode;
     private String brandName;
     private List<ProductDetailDto> productDetails;
 
@@ -23,9 +22,8 @@ public class BrandDto {
         if (entity == null) return null;
         return BrandDto.builder()
                 .brandId(entity.getBrandId())
-                .brandCode(entity.getBrandCode())
                 .brandName(entity.getBrandName())
-                .productDetails(!isDetail ? null : entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(isDetail ? null : entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

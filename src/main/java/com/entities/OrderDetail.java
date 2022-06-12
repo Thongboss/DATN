@@ -1,7 +1,5 @@
 package com.entities;
 
-import com.entities.dtos.OrderDetailDto;
-import com.entities.dtos.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,16 +17,16 @@ public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Orders order;
+    private Order order;
     @ManyToOne
-    private DetailProduct detailProduct;
+    @JoinColumn(name = "product_id")
+    private ProductDetail detailProduct;
     @JoinColumn(name = "quantity")
     private Integer quantity;
     @JoinColumn(name = "price")
     private Double price;
-
 
 }

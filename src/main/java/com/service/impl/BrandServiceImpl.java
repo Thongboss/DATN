@@ -52,7 +52,6 @@ public class BrandServiceImpl implements IBrandService {
         Brand original = this.findById(model.getBrandId());
         original.setBrandId(model.getBrandId());
         original.setBrandName(model.getBrandName());
-        original.setBrandCode(model.getBrandCode());
         return this.brandRepository.save(original);
     }
 

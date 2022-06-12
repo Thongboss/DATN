@@ -49,7 +49,6 @@ private final CountryRepository countryRepository;
     public Country update(CountryModel model) {
         Country original = this.findById(model.getCountryId());
         original.setCountryId(model.getCountryId());
-        original.setCountryCode(model.getCountryCode());
         original.setCountryName(model.getCountryName());
         return this.countryRepository.save(original);
     }

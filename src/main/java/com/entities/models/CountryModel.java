@@ -18,15 +18,11 @@ public class CountryModel {
     private Long countryId;
     @NotNull
     @NotBlank
-    private String countryCode;
-    @NotNull
-    @NotBlank
     private String countryName;
 
     public static Country toEntity(CountryModel model) {
         if (model == null) throw new RuntimeException("CountryModel is null");
         return Country.builder()
-                .countryCode(model.getCountryCode())
                 .countryName(model.getCountryName())
                 .build();
     }

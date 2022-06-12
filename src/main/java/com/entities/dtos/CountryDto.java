@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Builder
 public class CountryDto {
     private Long countryId;
-    private String countryCode;
     private String countryName;
     private List<ProductDetailDto> productDetails;
 
@@ -24,9 +23,8 @@ public class CountryDto {
 
         return CountryDto.builder()
                 .countryId(entity.getCountryId())
-                .countryCode(entity.getCountryCode())
                 .countryName(entity.getCountryName())
-                .productDetails(!isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

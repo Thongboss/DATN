@@ -99,4 +99,9 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         ids.forEach(this::deleteById);
         return true;
     }
+
+    @Override
+    public Page<ProductDetail> search(String keyword, Pageable page) {
+        return this.productDetailRepository.search(keyword, page);
+    }
 }

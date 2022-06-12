@@ -18,8 +18,6 @@ public class Weight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long weightId;
-    @Column(name = "weight_code",  unique = true)
-    private String weightCode;
     @Column(name = "weight_name")
     private String weightName;
     @OneToMany(mappedBy = "weight")

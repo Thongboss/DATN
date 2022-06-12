@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -65,5 +67,11 @@ public class ProductDetailResources {
     @DeleteMapping("buck/{ids}")
     public ResponseDto deleteBulkProductDetails(@PathVariable List<Long> ids) {
         return ResponseDto.of(this.productDetailService.deleteByIds(ids), "Delete buck Products");
+    }
+
+    @Transactional
+    @GetMapping("search")
+    public ResponseDto search(@RequestParam("q") @NotNull @NotBlank @Valid String q, Pageable page){
+        return ResponseDto.of(this.productDetailService.search(q, page), "Search products");
     }
 }

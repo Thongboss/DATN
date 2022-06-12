@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Builder
 public class UnitDto {
     private Long unitId;
-    private String unitCode;
     private String unitName;
     private List<ProductDetailDto> productDetails;
 
@@ -25,9 +24,8 @@ public class UnitDto {
             return null;
         return UnitDto.builder()
                 .unitId(entity.getUnitId())
-                .unitCode(entity.getUnitCode())
                 .unitName(entity.getUnitName())
-                .productDetails(!isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

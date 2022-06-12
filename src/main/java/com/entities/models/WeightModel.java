@@ -18,15 +18,11 @@ public class WeightModel {
     private Long weightId;
     @NotNull
     @NotBlank
-    private String weightCode;
-    @NotNull
-    @NotBlank
     private String weightName;
 
     public static Weight toEntity(WeightModel model) {
         if (model == null) throw new RuntimeException("WeightModel is null");
         return Weight.builder()
-                .weightCode(model.getWeightCode())
                 .weightName(model.getWeightName())
                 .build();
     }

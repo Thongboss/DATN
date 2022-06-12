@@ -30,7 +30,7 @@ public class CategoryDto {
                 .categoryId(entity.getCategoryId())
                 .categoryName(entity.getCategoryName())
                 .slug(entity.getSlug())
-                .productDetails(!isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
+                .productDetails(isDetail == false ? null : (entity.getProductDetails() != null ? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null))
                 .build();
     }
 }

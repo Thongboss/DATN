@@ -18,8 +18,6 @@ public class Unit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long unitId;
-    @Column(name = "unit_code", unique = true)
-    private String unitCode;
     @Column(name = "unit_name")
     private String unitName;
     @OneToMany(mappedBy = "unit")
