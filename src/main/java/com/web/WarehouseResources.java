@@ -1,8 +1,8 @@
 package com.web;
 
-import com.entities.Warehouse;
+
 import com.entities.dtos.ResponseDto;
-import com.entities.dtos.UserDto;
+
 import com.entities.dtos.WarehouseDTO;
 import com.entities.models.WarehouseModel;
 import com.service.IWarehouseService;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("warehouse")
