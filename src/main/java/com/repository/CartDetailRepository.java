@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.entities.CartDetail;
 
 public interface CartDetailRepository extends JpaRepository<CartDetail, Long>{
-	@Query("SELECT sum(wd.quantity) FROM cartDetail wd WHERE wd.cartDetailId = ?1")
+	@Query("SELECT sum(wd.quantity) FROM CartDetail wd WHERE wd.productDetail.productDetailId = ?1")
     Integer sumAllQuantityProduct(Long productID);
 }

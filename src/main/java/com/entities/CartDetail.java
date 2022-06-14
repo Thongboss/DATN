@@ -37,11 +37,10 @@ public class CartDetail implements Serializable{
     
     @Column(name = "price", nullable = false)
     private Long price;
-    
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private ProductDetail productDetail;
-    
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;

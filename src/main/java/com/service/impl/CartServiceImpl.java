@@ -19,7 +19,9 @@ import com.repository.CartDetailRepository;
 import com.repository.CartRepository;
 import com.repository.ProductDetailRepository;
 import com.service.ICartService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CartServiceImpl implements ICartService{
 	@Autowired
 	CartRepository cartRepository;
