@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.stream.Collectors;
 
 
@@ -62,6 +63,8 @@ public class WarehouseResources {
     public ResponseDto getDetailWarehouseById(@PathVariable Long id) {
         return ResponseDto.of(this.warehouseService.findById(id).getWarehouseDetails().stream().map(WarehouseDetailDTO::toDto).collect(Collectors.toList()), "Find by id warehouse: " + id);
     }
+
+
 
 
 }

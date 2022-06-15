@@ -17,15 +17,13 @@ import java.util.stream.Collectors;
 public class UnitDto {
     private Long unitId;
     private String unitName;
-    private List<ProductDetailDto> productDetails;
 
-    public static UnitDto toDto(Unit entity, boolean isDetail) {
+    public static UnitDto toDto(Unit entity) {
         if (entity == null)
             return null;
         return UnitDto.builder()
                 .unitId(entity.getUnitId())
                 .unitName(entity.getUnitName())
-                .productDetails(isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

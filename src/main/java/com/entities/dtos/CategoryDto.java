@@ -22,15 +22,13 @@ public class CategoryDto {
     private String categoryName;
 
     private String slug;
-    private List<ProductDetailDto> productDetails;
 
-    public static CategoryDto toDto(Category entity, boolean isDetail) {
-        if(entity == null) return null;
+    public static CategoryDto toDto(Category entity) {
+        if (entity == null) return null;
         return CategoryDto.builder()
                 .categoryId(entity.getCategoryId())
                 .categoryName(entity.getCategoryName())
                 .slug(entity.getSlug())
-                .productDetails(isDetail == false ? null : (entity.getProductDetails() != null ? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null))
                 .build();
     }
 }

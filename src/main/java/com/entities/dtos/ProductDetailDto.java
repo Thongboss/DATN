@@ -14,7 +14,7 @@ import java.util.Date;
 @Builder
 public class ProductDetailDto {
     private Long productDetailId;
-    private ProductDto productParent;
+    private String productName;
     private Double oldPrice;
     private Double newPrice;
     private String image;
@@ -31,16 +31,16 @@ public class ProductDetailDto {
         if (entity == null) return null;
         return ProductDetailDto.builder()
                 .productDetailId(entity.getProductDetailId())
-                .productParent(ProductDto.toDto(entity.getProductParent()))
+                .productName(entity.getProductParent().getProductName() + " " + entity.getWeight().getWeightName())
                 .oldPrice(entity.getOldPrice())
                 .newPrice(entity.getNewPrice())
                 .image(entity.getImage())
                 .productRemain(entity.getProductRemain())
-                .category(CategoryDto.toDto(entity.getCategory(), false))
-                .brand(BrandDto.toDto(entity.getBrand(), false))
-                .country(CountryDto.toDto(entity.getCountry(), false))
-                .unit(UnitDto.toDto(entity.getUnit(), false))
-                .weight(WeightDto.toDto(entity.getWeight(), false))
+                .category(CategoryDto.toDto(entity.getCategory()))
+                .brand(BrandDto.toDto(entity.getBrand()))
+                .country(CountryDto.toDto(entity.getCountry()))
+                .unit(UnitDto.toDto(entity.getUnit()))
+                .weight(WeightDto.toDto(entity.getWeight()))
                 .createdDate(entity.getCreatedDate())
                 .updatedDate(entity.getUpdatedDate())
                 .build();

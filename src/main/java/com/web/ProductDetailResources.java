@@ -72,6 +72,6 @@ public class ProductDetailResources {
     @Transactional
     @GetMapping("search")
     public ResponseDto search(@RequestParam("q") @NotNull @NotBlank @Valid String q, Pageable page){
-        return ResponseDto.of(this.productDetailService.search(q, page), "Search products");
+        return ResponseDto.of(this.productDetailService.search(q, page).map(ProductDetailDto::toDto), "Search products");
     }
 }

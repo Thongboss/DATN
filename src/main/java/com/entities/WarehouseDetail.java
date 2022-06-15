@@ -23,15 +23,19 @@ public class WarehouseDetail implements Serializable{
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_of_manufacturee", nullable = false)
     private Date dateOfManufacture;
 
-    @Column(name = "expiry", nullable = false)
-    private String expiry;
+    @Column(name = "expiry_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date expireDate;
 
     @Column(name = "price")
     private Long price;
+
+    @Column(name = "sub_total")
+    private Double subTotal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_details_id")
@@ -39,7 +43,6 @@ public class WarehouseDetail implements Serializable{
 
     @Column(name = "product_name")
     private String productName;
-
     @ManyToOne
     private Warehouse warehouse;
 }

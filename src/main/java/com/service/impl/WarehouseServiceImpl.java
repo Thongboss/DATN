@@ -70,6 +70,7 @@ public class WarehouseServiceImpl implements IWarehouseService {
             ProductDetail p = productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!, id: " + dt.getProductDetailId()));
             warehouseDetail.setProductDetailId(p);
             warehouseDetail.setProductName(p.getProductParent().getProductName() + "-" + p.getWeight() + "g");
+            warehouseDetail.setSubTotal(dt.getPrice() * dt.getQuantity().doubleValue());
             return warehouseDetail;
         }).collect(Collectors.toList()));
         warehouse.setTotalQuantity(totalQuantity.get());
@@ -118,7 +119,7 @@ public class WarehouseServiceImpl implements IWarehouseService {
                 .quantity(model.getQuantity())
                 .price(model.getPrice())
                 .dateOfManufacture(model.getDateOfManufacture())
-                .expiry(model.getExpiry())
+                .expireDate(model.getExpireDate())
                 .build();
 
     }

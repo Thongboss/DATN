@@ -17,7 +17,7 @@ public class CartDetailDto {
 	private Long price;
 	
 	private Integer quantity;
-	
+
     private ProductDetailDto productDetail;
     
     private CartDto cart;
@@ -30,7 +30,6 @@ public class CartDetailDto {
     			.id(entity.getId())
     			.price(entity.getPrice())
     			.quantity(entity.getQuantity())
-    			.productDetail(ProductDetailDto.toDto(entity.getProductDetail()))
     			.cart(CartDto.toDto(entity.getCart()))
     			.build();
     }

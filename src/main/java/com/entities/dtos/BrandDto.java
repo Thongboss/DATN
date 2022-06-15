@@ -16,14 +16,12 @@ import java.util.stream.Collectors;
 public class BrandDto {
     private Long brandId;
     private String brandName;
-    private List<ProductDetailDto> productDetails;
 
-    public static BrandDto toDto(Brand entity, boolean isDetail) {
+    public static BrandDto toDto(Brand entity) {
         if (entity == null) return null;
         return BrandDto.builder()
                 .brandId(entity.getBrandId())
                 .brandName(entity.getBrandName())
-                .productDetails(isDetail ? null : entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

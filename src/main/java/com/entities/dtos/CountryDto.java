@@ -17,14 +17,13 @@ public class CountryDto {
     private String countryName;
     private List<ProductDetailDto> productDetails;
 
-    public static CountryDto toDto(Country entity, boolean isDetail) {
+    public static CountryDto toDto(Country entity) {
         if (entity == null)
             return null;
 
         return CountryDto.builder()
                 .countryId(entity.getCountryId())
                 .countryName(entity.getCountryName())
-                .productDetails(isDetail ? null :entity.getProductDetails() != null? entity.getProductDetails().stream().map(ProductDetailDto::toDto).collect(Collectors.toList()) : null)
                 .build();
     }
 }

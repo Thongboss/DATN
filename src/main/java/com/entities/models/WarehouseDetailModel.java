@@ -1,5 +1,6 @@
 package com.entities.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,9 +18,10 @@ public class WarehouseDetailModel implements Serializable {
 
     private Integer quantity;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateOfManufacture;
-
-    private String expiry;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date expireDate;
 
     private Long price;
 
