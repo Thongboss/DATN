@@ -24,7 +24,7 @@ public class WarehouseDetailDTO {
 
     private Long price;
 
-    private Long productDetailId;
+    private String productName;
 
     private Long warehouse;
 
@@ -36,7 +36,7 @@ public class WarehouseDetailDTO {
                 .dateOfManufacture(entity.getDateOfManufacture())
                 .expiry(entity.getExpiry())
                 .price(entity.getPrice())
-                .productDetailId(entity.getProductDetailId())
+                .productName(entity.getProductName())
                 .warehouse(entity.getWarehouse().getId())
                 .build();
     }

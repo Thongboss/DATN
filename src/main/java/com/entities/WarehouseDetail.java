@@ -33,9 +33,12 @@ public class WarehouseDetail implements Serializable{
     @Column(name = "price")
     private Long price;
 
-//    @ManyToOne
-    @Column(name = "product_details_id")
-    private Long productDetailId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_details_id")
+    private ProductDetail productDetailId;
+
+    @Column(name = "product_name")
+    private String productName;
 
     @ManyToOne
     private Warehouse warehouse;

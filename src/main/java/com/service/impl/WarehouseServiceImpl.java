@@ -51,7 +51,8 @@ public class WarehouseServiceImpl implements IWarehouseService {
 
     @Override
     public Warehouse findById(Long id) {
-        return this.warehouseRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found warehouse!"));
+        Warehouse w = this.warehouseRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found warehouse!"));
+        return w;
     }
 
     @Override
@@ -66,6 +67,9 @@ public class WarehouseServiceImpl implements IWarehouseService {
             warehouseDetail.setWarehouse(warehouse);
             productDetailIds.add(dt.getProductDetailId());
             totalQuantity.updateAndGet(v -> v + dt.getQuantity());
+            ProductDetail p = productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!, id: " + dt.getProductDetailId()));
+            warehouseDetail.setProductDetailId(p);
+            warehouseDetail.setProductName(p.getProductParent().getProductName() + "-" + p.getWeight() + "g");
             return warehouseDetail;
         }).collect(Collectors.toList()));
         warehouse.setTotalQuantity(totalQuantity.get());
@@ -115,7 +119,6 @@ public class WarehouseServiceImpl implements IWarehouseService {
                 .price(model.getPrice())
                 .dateOfManufacture(model.getDateOfManufacture())
                 .expiry(model.getExpiry())
-                .productDetailId(model.getProductDetailId())
                 .build();
 
     }

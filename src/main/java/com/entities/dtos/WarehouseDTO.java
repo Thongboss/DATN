@@ -33,7 +33,6 @@ public class WarehouseDTO {
     private String user;
 
     private Integer totalQuantity;
-    private List<WarehouseDetailDTO> warehouseDetails;
 
     public static WarehouseDTO toDto(Warehouse entity) {
         if (entity == null) throw new RuntimeException("Entity is null");
@@ -45,7 +44,6 @@ public class WarehouseDTO {
                 .totalQuantity(entity.getTotalQuantity())
                 .description(entity.getDescription())
                 .user(entity.getUser().getFullname())
-                .warehouseDetails(entity.getWarehouseDetails() == null ? null : entity.getWarehouseDetails().stream().map(dt -> WarehouseDetailDTO.toDto(dt)).collect(Collectors.toList()))
                 .build();
 
     }

@@ -25,7 +25,8 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
         log.info("JwtFilter is checking");
         if (req.getMethod().equalsIgnoreCase("OPTIONS")) {
-            filterChain.doFilter(req, res);
+            System.out.println("doesn't need token");
+           filterChain.doFilter(req, res);
         } else {
             String token = null;
             token = req.getHeader("Authorization");
