@@ -32,26 +32,25 @@ import lombok.ToString;
 @Data
 @ToString
 @Builder
-
 public class Cart implements Serializable{
 	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    
-    @UpdateTimestamp
-    @Column(name = "updated_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedDate;
-    
-    @Column(name = "sum_money", nullable = false)
-    private Long sumMoney;
-    
+
+//    @UpdateTimestamp
+//    @Column(name = "updated_date")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date updatedDate;
+//
+//    @Column(name = "sum_money", nullable = false)
+//    private Long sumMoney;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User createdUser;
-    
+
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartDetail> cartDetails;
 }
