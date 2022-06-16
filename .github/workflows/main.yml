@@ -22,6 +22,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+        run: cat /home/backend_env/datn_env >> .env;
+
       - name: clean project and build jar f
         run: mvn clean package -DskipTests;
 
