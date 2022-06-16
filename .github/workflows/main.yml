@@ -20,23 +20,23 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+#      - uses: actions/checkout@v3
 
       - name: append aws key
-        run: echo ${{secrets.AWS_KEYS}} >> .env;
+        run: echo ${{secrets.AWS_KEYS}};
 
       # Runs a single command using the runneriles shell
-      - name: clean project and build jar f
-        run: mvn clean package;
-
-      # Runs a set of commands using the runners shell
-      - name: Delete container and image
-        run:
-          docker image rm -f spring-app || echo "d";
-          docker container rm -f spring_app || echo "d";
-      - name: Build image and run container
-        run:
-          docker build -t spring-app:latest .;
-          docker run -d -p 8090:8090 --name spring_app spring-app:latest;
-      - name: complete build springboot app
-        run: echo "build springboot app completion";
+#      - name: clean project and build jar f
+#        run: mvn clean package;
+#
+#      # Runs a set of commands using the runners shell
+#      - name: Delete container and image
+#        run:
+#          docker image rm -f spring-app || echo "d";
+#          docker container rm -f spring_app || echo "d";
+#      - name: Build image and run container
+#        run:
+#          docker build -t spring-app:latest .;
+#          docker run -d -p 8090:8090 --name spring_app spring-app:latest;
+#      - name: complete build springboot app
+#        run: echo "build springboot app completion";
