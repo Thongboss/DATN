@@ -22,6 +22,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: copy env
         run: cat /home/backend_env/datn_env >> .env;
 
       - name: clean project and build jar f
