@@ -22,6 +22,7 @@ public class WarehouseDetailDTO {
 
     private Date expireDate;
     private Double subTotal;
+    private Long productDetailId;
 
     private Long price;
 
@@ -35,6 +36,7 @@ public class WarehouseDetailDTO {
                 .id(entity.getId())
                 .quantity(entity.getQuantity())
                 .dateOfManufacture(entity.getDateOfManufacture())
+                .productDetailId(entity.getProductDetailId())
                 .expireDate(entity.getExpireDate())
                 .subTotal(entity.getSubTotal())
                 .price(entity.getPrice())

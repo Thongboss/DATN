@@ -29,7 +29,7 @@ public class Warehouse implements Serializable {
     private Date updatedDate;
 
     @Column(name = "sum_money", nullable = false)
-    private Long sumMoney;
+    private Double sumMoney;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")

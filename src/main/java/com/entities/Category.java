@@ -2,14 +2,13 @@ package com.entities;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,5 +28,6 @@ public class Category {
     private String slug;
 
     @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private List<ProductDetail> productDetails;
 }

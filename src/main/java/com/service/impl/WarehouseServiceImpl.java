@@ -61,6 +61,7 @@ public class WarehouseServiceImpl implements IWarehouseService {
 
         List<Long> productDetailIds = new ArrayList<>();
         AtomicReference<Integer> totalQuantity = new AtomicReference<>(0);
+        AtomicReference<Double> totalMoney = new AtomicReference<>(Double.valueOf(0f));
         warehouse.setWarehouseDetails(model.getWarehouseDetails().stream().map(dt ->
         {
             WarehouseDetail warehouseDetail = modelToEntityWarehouseDetail(dt);
@@ -68,12 +69,15 @@ public class WarehouseServiceImpl implements IWarehouseService {
             productDetailIds.add(dt.getProductDetailId());
             totalQuantity.updateAndGet(v -> v + dt.getQuantity());
             ProductDetail p = productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!, id: " + dt.getProductDetailId()));
-            warehouseDetail.setProductDetailId(p);
-            warehouseDetail.setProductName(p.getProductParent().getProductName() + "-" + p.getWeight() + "g");
-            warehouseDetail.setSubTotal(dt.getPrice() * dt.getQuantity().doubleValue());
+            warehouseDetail.setProductDetailId(p.getProductDetailId());
+            warehouseDetail.setProductName(p.getProductParent().getProductName() + " " + p.getWeight().getWeightName() + "g");
+            Double subTotal = dt.getPrice() * dt.getQuantity().doubleValue();
+            warehouseDetail.setSubTotal(subTotal);
+            totalMoney.updateAndGet(v -> v+subTotal);
             return warehouseDetail;
         }).collect(Collectors.toList()));
         warehouse.setTotalQuantity(totalQuantity.get());
+        warehouse.setSumMoney(totalMoney.get());
         Warehouse savedWarehouse = this.warehouseRepository.save(warehouse);
 
         // set product quantity

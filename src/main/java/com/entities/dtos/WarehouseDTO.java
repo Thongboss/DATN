@@ -19,14 +19,11 @@ import java.util.stream.Collectors;
 public class WarehouseDTO {
     private Long id;
 
-    private Date dateWarehouse;
 
-    private Long sumMoney;
+    private Double sumMoney;
 
     private Date createdDate;
     private Date updatedDate;
-
-    private String status;
 
     private String description;
 

@@ -45,7 +45,10 @@ public class BeanConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "http://192.168.72.103:3000", "http://192.168.1.44:3000")
+                        .allowedOrigins("http://localhost:3000",
+                                "http://192.168.72.103:3000",
+                                "http://192.168.1.44:3000",
+                                "http://172.19.200.206:3000")
                         .allowedHeaders("Authorization", "Cache-Control", "Content-Type", "Access-Control-Allow-Origin")
                         .allowCredentials(true)
                         .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS");

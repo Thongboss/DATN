@@ -10,7 +10,8 @@ import java.util.Date;
 @Table(name = "warehouse_details")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @ToString
 @Builder
 public class WarehouseDetail implements Serializable{
@@ -37,9 +38,8 @@ public class WarehouseDetail implements Serializable{
     @Column(name = "sub_total")
     private Double subTotal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_details_id")
-    private ProductDetail productDetailId;
+    @Column(name = "product_details_id")
+    private Long productDetailId;
 
     @Column(name = "product_name")
     private String productName;
