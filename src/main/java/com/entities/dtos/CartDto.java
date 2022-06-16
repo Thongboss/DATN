@@ -18,8 +18,6 @@ import test.javatest;
 @Builder
 public class CartDto {
 	private Long id;
-	private Date updateDate;
-	private Long sunMoney;
 	private List<CartDetailDto> cartDetailDto;
 	private UserDto userDto;
 	
@@ -29,8 +27,6 @@ public class CartDto {
 		}
 		return CartDto.builder()
 				.id(entity.getId())
-				.updateDate(entity.getUpdatedDate())
-				.sunMoney(entity.getSumMoney())
 				.cartDetailDto(entity.getCartDetails().stream().map(CartDetailDto::toDto).collect(java.util.stream.Collectors.toList()))
 				.userDto(UserDto.toDto(entity.getCreatedUser()))
 				.build();

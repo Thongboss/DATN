@@ -22,10 +22,6 @@ public class CartModel {
 	
 	private Long id;
 	
-	private Date updateDate;
-	
-	private Long sumMoney;
-	
 	private Long createUser;
 	
 	private List<CartDetailModel> cartDetailModel;
@@ -37,8 +33,6 @@ public class CartModel {
 		
 		return Cart.builder()
 				.id(model.getId())
-				.updatedDate(model.getUpdateDate())
-				.sumMoney(model.getSumMoney())
 				.build();
 	}
 }
