@@ -15,40 +15,45 @@ import java.util.List;
 public class CountryResources {
 
 
-        private final ICountryService countryService;
+    private final ICountryService countryService;
 
     public CountryResources(ICountryService countryService) {
         this.countryService = countryService;
     }
 
     @GetMapping
-    public ResponseDto getAll(Pageable page){
-        return ResponseDto.of(this.countryService.findAll(page).map(c-> CountryDto.toDto(c)), "Get all countries");
+    public ResponseDto getAll(Pageable page) {
+        return ResponseDto.of(this.countryService.findAll(page).map(c -> CountryDto.toDto(c)), "Get all countries");
     }
 
     @GetMapping("{id}")
-    public ResponseDto getCountry(@PathVariable long id){
+    public ResponseDto getCountry(@PathVariable long id) {
         return ResponseDto.of(CountryDto.toDto(this.countryService.findById(id)), "Get country id: " + id);
     }
+
     @PostMapping
-    private ResponseDto createCountry(@RequestBody CountryModel model){
+    private ResponseDto createCountry(@RequestBody CountryModel model) {
         model.setCountryId(null);
         return ResponseDto.of(CountryDto.toDto(this.countryService.add(model)), "Add country");
     }
 
     @PutMapping("{id}")
-    public ResponseDto updateCountry(@PathVariable long id, @RequestBody CountryModel model){
+    public ResponseDto updateCountry(@PathVariable long id, @RequestBody CountryModel model) {
         model.setCountryId(id);
         return ResponseDto.of(CountryDto.toDto(this.countryService.update(model)), "Update country id: " + id);
     }
 
     @DeleteMapping("{id}")
-    public ResponseDto deleteCountry(@PathVariable long id){
+    public ResponseDto deleteCountry(@PathVariable long id) {
         return ResponseDto.of(this.countryService.deleteById(id), "Delete country id: " + id);
     }
 
     @DeleteMapping("buck/{ids}")
-    public ResponseDto deleteCountries(@PathVariable List<Long> ids){
+    public ResponseDto deleteCountries(@PathVariable List<Long> ids) {
         return ResponseDto.of(this.countryService.deleteByIds(ids), "Delete countries ids: " + ids);
+    }
+    @GetMapping("get-all")
+    public ResponseDto getAllCountries() {
+        return ResponseDto.of(this.countryService.findAll().stream().map(CountryDto::toDto), "Get all countries");
     }
 }

@@ -21,7 +21,7 @@ public class WeightResources {
 
     @GetMapping
     public ResponseDto getAll(Pageable page) {
-        return ResponseDto.of(this.weightService.findAll(page).map(w-> WeightDto.toDto(w)), "Get all weights");
+        return ResponseDto.of(this.weightService.findAll(page).map(w -> WeightDto.toDto(w)), "Get all weights");
     }
 
     @GetMapping("{id}")
@@ -36,7 +36,7 @@ public class WeightResources {
     }
 
     @PutMapping("{id}")
-    public ResponseDto updateWeight(@PathVariable long id, @RequestBody  WeightModel model) {
+    public ResponseDto updateWeight(@PathVariable long id, @RequestBody WeightModel model) {
         model.setWeightId(id);
         return ResponseDto.of(WeightDto.toDto(this.weightService.update(model)), "Update weight id: " + id);
     }
@@ -49,6 +49,11 @@ public class WeightResources {
     @DeleteMapping("buck/{ids}")
     public ResponseDto deleteWeights(@PathVariable List<Long> ids) {
         return ResponseDto.of(this.weightService.deleteByIds(ids), "Delete weights ids: " + ids);
+    }
+
+    @GetMapping("get-all")
+    public ResponseDto getAllWeights() {
+        return ResponseDto.of(this.weightService.findAll().stream().map(WeightDto::toDto), "Get all weights");
     }
 
 }

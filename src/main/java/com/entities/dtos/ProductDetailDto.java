@@ -15,6 +15,7 @@ import java.util.Date;
 public class ProductDetailDto {
     private Long productDetailId;
     private String productName;
+    private Long productParent;
     private Double oldPrice;
     private Double newPrice;
     private String image;
@@ -32,6 +33,7 @@ public class ProductDetailDto {
         return ProductDetailDto.builder()
                 .productDetailId(entity.getProductDetailId())
                 .productName(entity.getProductParent().getProductName() + " " + entity.getWeight().getWeightName())
+                .productParent(entity.getProductParent().getId())
                 .oldPrice(entity.getOldPrice())
                 .newPrice(entity.getNewPrice())
                 .image(entity.getImage())

@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class ProductDetailModel {
     private Long productDetailId;
-
     @NotNull
     private Long productParent;
     @NotNull

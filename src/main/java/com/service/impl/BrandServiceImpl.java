@@ -21,7 +21,7 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public List<Brand> findAll() {
-        return null;
+        return this.brandRepository.findAll();
     }
 
     @Override

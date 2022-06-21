@@ -21,7 +21,7 @@ public class UnitServiceImpl implements IUnitService {
 
     @Override
     public List<Unit> findAll() {
-        return null;
+        return this.unitRepository.findAll();
     }
 
     @Override

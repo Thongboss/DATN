@@ -59,5 +59,10 @@ public class CategoryResorces {
     public ResponseDto deleteBulkCategories(@PathVariable List<Long> ids) {
         return ResponseDto.of(this.categoryService.deleteByIds(ids), "Delete buck categories: " + ids);
     }
+
+    @GetMapping("/categories/get-all")
+    public ResponseDto getAllCategories() {
+        return ResponseDto.of(this.categoryService.findAll().stream().map(CategoryDto::toDto), "Get all categories");
+    }
 }
 

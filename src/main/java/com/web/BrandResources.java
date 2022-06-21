@@ -6,6 +6,7 @@ import com.entities.models.BrandModel;
 import com.service.IBrandService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class BrandResources {
 
     @GetMapping
     public ResponseDto getAll(Pageable page) {
-        return ResponseDto.of(this.brandService.findAll(page).map(b-> BrandDto.toDto(b)), "Get all brands");
+        return ResponseDto.of(this.brandService.findAll(page).map(b -> BrandDto.toDto(b)), "Get all brands");
     }
 
     @GetMapping("{id}")
@@ -50,4 +51,8 @@ public class BrandResources {
         return ResponseDto.of(this.brandService.deleteByIds(ids), "Delete brands ids: " + ids);
     }
 
+    @GetMapping("get-all")
+    public ResponseDto getAllBrands() {
+        return ResponseDto.of(this.brandService.findAll().stream().map(BrandDto::toDto), "Get all brands");
+    }
 }

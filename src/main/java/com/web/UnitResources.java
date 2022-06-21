@@ -21,7 +21,7 @@ public class UnitResources {
 
     @GetMapping
     public ResponseDto getAll(Pageable page) {
-        return ResponseDto.of(this.unitService.findAll(page).map(u-> UnitDto.toDto(u)), "Get all units");
+        return ResponseDto.of(this.unitService.findAll(page).map(u -> UnitDto.toDto(u)), "Get all units");
     }
 
     @GetMapping("{id}")
@@ -49,5 +49,10 @@ public class UnitResources {
     @DeleteMapping("buck/{ids}")
     public ResponseDto deleteUnits(@PathVariable List<Long> ids) {
         return ResponseDto.of(this.unitService.deleteByIds(ids), "Delete units ids: " + ids);
+    }
+
+    @GetMapping("get-all")
+    public ResponseDto getAllUnits() {
+        return ResponseDto.of(this.unitService.findAll().stream().map(UnitDto::toDto), "Get all units");
     }
 }

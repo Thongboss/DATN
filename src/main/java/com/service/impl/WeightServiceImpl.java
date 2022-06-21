@@ -21,7 +21,7 @@ public class WeightServiceImpl implements IWeightService {
 
     @Override
     public List<Weight> findAll() {
-        return null;
+        return this.weightRepository.findAll();
     }
 
     @Override

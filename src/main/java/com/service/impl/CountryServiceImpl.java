@@ -21,7 +21,7 @@ private final CountryRepository countryRepository;
 
     @Override
     public List<Country> findAll() {
-        return null;
+        return this.countryRepository.findAll();
     }
 
     @Override

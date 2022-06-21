@@ -8,6 +8,7 @@ import com.entities.models.ProductDetailModel;
 import com.entities.models.ProductModel;
 import com.service.IProductDetailService;
 import com.service.IProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,8 @@ public class ProductDetailResources {
     @Transactional
     @GetMapping
     public ResponseDto getAll(Pageable page) {
-        return ResponseDto.of(this.productDetailService.findAll(page).map(ProductDetailDto::toDto), "Get all products");
+        Page<ProductDetail> productPage = this.productDetailService.findAll(page);
+        return ResponseDto.of(productPage.map(ProductDetailDto::toDto), "Get all products");
     }
 
     @Transactional
