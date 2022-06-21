@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.entities.dtos.ProductDto;
 import com.entities.dtos.ResponseDto;
+import com.entities.models.ProductFilterModel;
 import com.entities.models.ProductModel;
+import com.repository.specifications.ProductSpecification;
 import com.service.IProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -62,6 +65,12 @@ public class ProductResources {
     @DeleteMapping("/products/buck/{ids}")
     public ResponseDto deleteBulkProducts(@PathVariable List<Long> ids) {
         return ResponseDto.of(this.productService.deleteByIds(ids), "Delete buck Products");
+    }
+
+    @PostMapping("products/filter")
+    public ResponseDto filter(@RequestBody ProductFilterModel model, Pageable page) {
+        Page<Product> productPage = this.productService.findAll(page, ProductSpecification.filter(model));
+        return ResponseDto.of(productPage.map(ProductDto::toDto), "Filter products");
     }
 
 }

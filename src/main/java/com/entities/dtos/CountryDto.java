@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class CountryDto {
     private Long countryId;
     private String countryName;
-    private List<ProductDetailDto> productDetails;
 
     public static CountryDto toDto(Country entity) {
         if (entity == null)

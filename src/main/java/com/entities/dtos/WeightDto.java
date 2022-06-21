@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
 @Builder
 public class WeightDto {
     private Long weightId;
-    private String weightCode;
-    private String weightName;
+        private String weightName;
 
     public static WeightDto toDto(Weight entity) {
         if (entity == null)
