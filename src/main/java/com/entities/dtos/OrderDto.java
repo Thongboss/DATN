@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,7 @@ public class OrderDto {
     private List<OrderDetailDto> orderDetails;
     private Date createdDate;
     private Date updatedDate;
+    private String DeliveryCode;
 
     private static OrderDto toDto(Order entity) {
         if (entity == null) {
@@ -40,9 +42,10 @@ public class OrderDto {
                 .paymentMethod(entity.getPaymentMethod())
                 .phoneNumber(entity.getPhoneNumber())
                 .address(entity.getAddress())
-                .orderDetails(entity.getOrderDetails().stream().map(OrderDetailDto::toDto).collect(java.util.stream.Collectors.toList()))
+                .orderDetails(entity.getOrderDetails().stream().map(OrderDetailDto::toDto).collect(Collectors.toList()))
                 .createdDate(entity.getCreatedDate())
                 .updatedDate(entity.getUpdatedDate())
+                .DeliveryCode(entity.getDeliveryCode())
                 .build();
     }
 

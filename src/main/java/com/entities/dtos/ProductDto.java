@@ -20,6 +20,10 @@ public class ProductDto {
     private Long id;
     private String productName;
     private String description;
+    private String status;
+    private Double price;
+    private Long quantity;
+    private String image;
 
     public static ProductDto toDto(Product entity) {
         if (entity == null) return null;
@@ -27,6 +31,10 @@ public class ProductDto {
                 .id(entity.getId())
                 .productName(entity.getProductName())
                 .description(entity.getDescription())
+                .status(entity.getStatus())
+                .price(entity.getPrice())
+                .quantity(entity.getQuantity())
+                .image(entity.getImage())
                 .build();
     }
 

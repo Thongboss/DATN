@@ -18,8 +18,10 @@ public class Weight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long weightId;
+
     @Column(name = "weight_name")
     private String weightName;
-    @OneToMany(mappedBy = "weight")
-    private List<ProductDetail> productDetails;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "weight")
+    private List<Product> product;
 }

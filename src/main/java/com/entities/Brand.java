@@ -18,8 +18,10 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long brandId;
+
     @Column(name = "brand_name")
     private String brandName;
-    @OneToMany(mappedBy = "brand")
-    private List<ProductDetail> productDetails;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "brand")
+    private List<Product> product;
 }

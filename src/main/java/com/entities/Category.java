@@ -27,7 +27,7 @@ public class Category {
     @Column(name = "slug", length = 255, nullable = false, unique = true)
     private String slug;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "category")
     @JsonManagedReference
-    private List<ProductDetail> productDetails;
+    private List<Product> product;
 }

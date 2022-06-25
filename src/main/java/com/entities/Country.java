@@ -18,8 +18,10 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long countryId;
+
     @Column(name = "country_name")
     private String countryName;
-    @OneToMany(mappedBy = "country")
-    private List<ProductDetail> productDetails;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "country")
+    private List<Product> products;
 }

@@ -29,6 +29,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             new AntPathRequestMatcher("/swagger-resources/**"),
             new AntPathRequestMatcher("/swagger-ui/**"),
             new AntPathRequestMatcher("/v2/api-docs"),
+            new AntPathRequestMatcher("/cart/**"),
             new AntPathRequestMatcher("/webjars/**")
     );
     //Các địa chỉ ip cần cấp phép là các URL còn lại//Private URLs are the others

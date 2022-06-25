@@ -18,8 +18,10 @@ public class Unit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long unitId;
+
     @Column(name = "unit_name")
     private String unitName;
-    @OneToMany(mappedBy = "unit")
-    private List<ProductDetail> productDetails;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "unit")
+    private List<Product> product;
 }

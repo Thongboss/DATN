@@ -29,6 +29,8 @@ public class OrderModel {
     @NotBlank
     private String address;
 
+    private String DeliveryCode;
+
     @NotNull
     private List<OrderDetailModel> orderDetails;
 
@@ -43,6 +45,7 @@ public class OrderModel {
                 .paymentMethod(model.getPaymentMethod())
                 .phoneNumber(model.getPhoneNumber())
                 .address(model.getAddress())
+                .DeliveryCode(model.getDeliveryCode())
                 .build();
     }
 

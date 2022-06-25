@@ -23,6 +23,24 @@ public class ProductModel {
 	@NotBlank
 	private String productName;
 	private String description;
+	@NotNull
+	private String status;
+	@NotNull
+	private Double price;
+	@NotNull
+	private Long quantity;
+	@NotNull
+	private String image;
+	@NotNull
+	private Long category;
+	@NotNull
+	private Long brand;
+	@NotNull
+	private Long country;
+	@NotNull
+	private Long unit;
+	@NotNull
+	private Long weight;
 
 	public static Product toEntity(ProductModel model) {
 		if (model == null) throw new RuntimeException("ProductModel is null");
@@ -30,6 +48,10 @@ public class ProductModel {
 				.id(model.getId())
 				.productName(model.getProductName())
 				.description(model.getDescription())
+				.status(model.getStatus())
+				.price(model.getPrice())
+				.quantity(model.getQuantity())
+				.image(model.getImage())
 				.build();
 	}
 
