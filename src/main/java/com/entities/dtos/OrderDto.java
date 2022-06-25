@@ -31,7 +31,7 @@ public class OrderDto {
 
     private static OrderDto toDto(Order entity) {
         if (entity == null) {
-            throw new RuntimeException("Entity is null");
+            return null;
         }
         return OrderDto.builder()
                 .id(entity.getId())

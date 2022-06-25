@@ -1,6 +1,7 @@
 package com.entities.models;
 
 import com.entities.Product;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,11 +25,11 @@ public class ProductModel {
 	private String productName;
 	private String description;
 	@NotNull
-	private String status;
+	private Boolean status;
 	@NotNull
 	private Double price;
 	@NotNull
-	private Long quantity;
+	private Integer quantity;
 	@NotNull
 	private String image;
 	@NotNull
@@ -51,7 +52,6 @@ public class ProductModel {
 				.status(model.getStatus())
 				.price(model.getPrice())
 				.quantity(model.getQuantity())
-				.image(model.getImage())
 				.build();
 	}
 

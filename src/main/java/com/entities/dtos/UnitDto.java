@@ -1,14 +1,10 @@
 package com.entities.dtos;
 
-import com.entities.ProductDetail;
 import com.entities.Unit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor

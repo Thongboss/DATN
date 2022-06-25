@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "billdetails")
+@Table(name = "order_details")
 @Builder
 public class OrderDetail {
 
@@ -23,7 +23,7 @@ public class OrderDetail {
     private Order order;
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private ProductDetail detailProduct;
+    private Product detailProduct;
     @JoinColumn(name = "quantity")
     private Integer quantity;
     @JoinColumn(name = "price")

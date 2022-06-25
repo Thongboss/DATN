@@ -1,12 +1,10 @@
 package com.service.impl;
 
 import com.Utils.SecurityUtils;
-import com.entities.ProductDetail;
 import com.entities.Warehouse;
 import com.entities.WarehouseDetail;
 import com.entities.models.WarehouseDetailModel;
 import com.entities.models.WarehouseModel;
-import com.repository.ProductDetailRepository;
 import com.repository.UserRepository;
 import com.repository.WarehouseDetailRepository;
 import com.repository.WarehouseRepository;
@@ -30,9 +28,6 @@ public class WarehouseServiceImpl implements IWarehouseService {
     WarehouseDetailRepository warehouseDetailRepository;
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    ProductDetailRepository productDetailRepository;
 
     @Override
     public List<Warehouse> findAll() {
@@ -68,9 +63,9 @@ public class WarehouseServiceImpl implements IWarehouseService {
             warehouseDetail.setWarehouse(warehouse);
             productDetailIds.add(dt.getProductDetailId());
             totalQuantity.updateAndGet(v -> v + dt.getQuantity());
-            ProductDetail p = productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!, id: " + dt.getProductDetailId()));
-            warehouseDetail.setProductDetailId(p.getProductDetailId());
-            warehouseDetail.setProductName(p.getProductParent().getProductName() + " " + p.getWeight().getWeightName() + "g");
+//            ProductDetail p = productDetailRepository.findById(dt.getProductDetailId()).orElseThrow(() -> new RuntimeException("Not found product detail!, id: " + dt.getProductDetailId()));
+//            warehouseDetail.setProductDetailId(p.getProductDetailId());
+//            warehouseDetail.setProductName(p.getProductParent().getProductName() + " " + p.getWeight().getWeightName() + "g");
             Double subTotal = dt.getPrice() * dt.getQuantity().doubleValue();
             warehouseDetail.setSubTotal(subTotal);
             totalMoney.updateAndGet(v -> v+subTotal);
@@ -81,11 +76,11 @@ public class WarehouseServiceImpl implements IWarehouseService {
         Warehouse savedWarehouse = this.warehouseRepository.save(warehouse);
 
         // set product quantity
-        productDetailIds.forEach(id -> {
-            ProductDetail p = productDetailRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found product detail!"));
-            p.setProductRemain(this.warehouseDetailRepository.sumAllQuantityProduct(id));
-            this.productDetailRepository.save(p);
-        });
+//        productDetailIds.forEach(id -> {
+//            ProductDetail p = productDetailRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found product detail!"));
+//            p.setProductRemain(this.warehouseDetailRepository.sumAllQuantityProduct(id));
+//            this.productDetailRepository.save(p);
+//        });
         return savedWarehouse;
     }
 

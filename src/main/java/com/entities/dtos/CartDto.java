@@ -1,16 +1,11 @@
 package com.entities.dtos;
 
-import java.util.Date;
-import java.util.List;
-
 import com.entities.Cart;
-import com.entities.CartDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import test.javatest;
 
 @Data
 @NoArgsConstructor
@@ -18,17 +13,24 @@ import test.javatest;
 @Builder
 public class CartDto {
 	private Long id;
-	private List<CartDetailDto> cartDetailDto;
-	private UserDto userDto;
 	
-	public static CartDto toDto(Cart entity) {
-		if(entity == null) {
-			throw new RuntimeException("CartDto is null");
-		}
-		return CartDto.builder()
-				.id(entity.getId())
-				.cartDetailDto(entity.getCartDetails().stream().map(CartDetailDto::toDto).collect(java.util.stream.Collectors.toList()))
-				.userDto(UserDto.toDto(entity.getCreatedUser()))
-				.build();
-	}
+	private Long price;
+	
+	private Integer quantity;
+
+    private ProductDto product;
+    
+    private UserDto cart;
+    
+    public static CartDto toDto(Cart entity) {
+    	if(entity == null) {
+    		return null;
+    	}
+    	return CartDto.builder()
+    			.id(entity.getId())
+    			.price(entity.getPrice())
+    			.quantity(entity.getQuantity())
+    			.cart(UserDto.toDto(entity.getCreatedUser()))
+    			.build();
+    }
 }

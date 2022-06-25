@@ -37,7 +37,7 @@ public class UserDto {
     private Set<Authority> authorityFilter;
     //Entity to Dto
     public static UserDto toDto(User entity) {
-        if (entity == null) throw new RuntimeException("Entity is null");
+        if (entity == null)return null;
         return UserDto.builder()
                 .id(entity.getId())
                 .username(entity.getUsername())

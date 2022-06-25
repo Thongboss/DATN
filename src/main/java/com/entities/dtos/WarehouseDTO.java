@@ -32,7 +32,7 @@ public class WarehouseDTO {
     private Integer totalQuantity;
 
     public static WarehouseDTO toDto(Warehouse entity) {
-        if (entity == null) throw new RuntimeException("Entity is null");
+        if (entity == null) return null;
         return WarehouseDTO.builder()
                 .id(entity.getId())
                 .sumMoney(entity.getSumMoney())

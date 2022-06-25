@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderDetailDto {
     private Long id;
-    private ProductDetailDto detailProduct;
+    private ProductDto detailProduct;
     private Integer quantity;
     private Double price;
 
     public static OrderDetailDto toDto(OrderDetail entity) {
         if (entity == null) {
-            throw new RuntimeException("Entity is null");
+            return null;
         }
         return OrderDetailDto.builder()
                 .id(entity.getId())
-                .detailProduct(ProductDetailDto.toDto(entity.getDetailProduct()))
+                .detailProduct(ProductDto.toDto(entity.getDetailProduct()))
                 .quantity(entity.getQuantity())
                 .price(entity.getPrice())
                 .build();

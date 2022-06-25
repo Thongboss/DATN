@@ -1,23 +1,15 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,12 +18,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
 @Builder
+
 public class Cart implements Serializable{
 	private static final long serialVersionUID = 1L;
     @Id
@@ -39,18 +32,17 @@ public class Cart implements Serializable{
     @Column(name = "ID")
     private Long id;
 
-//    @UpdateTimestamp
-//    @Column(name = "updated_date")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date updatedDate;
-//
-//    @Column(name = "sum_money", nullable = false)
-//    private Long sumMoney;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+    
+    @Column(name = "price", nullable = false)
+    private Long price;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User createdUser;
-
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartDetail> cartDetails;
 }

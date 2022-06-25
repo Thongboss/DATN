@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "bills")
+@Table(name = "orders")
 @Builder
 public class Order {
 
@@ -23,7 +23,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_guid",unique = true)
+    @Column(name = "order_guid", unique = true)
     private String orderGuid;
 
     @CreationTimestamp
@@ -33,7 +33,7 @@ public class Order {
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="updated_date")
+    @Column(name = "updated_date")
     private Date updatedDate;
 
     @Column(name = "totalMoney")
@@ -52,7 +52,7 @@ public class Order {
     @Column(name = "payment_method")
     private String paymentMethod;
 
-    @Column(name="phone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "address")
@@ -61,7 +61,13 @@ public class Order {
     @Column(name = "delivery_code", length = 255)
     private String DeliveryCode;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "order")
-    private List<OrderDetail> orderDetails ;
+    @Column(name = "delivery_fee")
+    private Double deliveryFee;
+
+    @Column(name = "is_return")
+    private Boolean isReturn;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
+    private List<OrderDetail> orderDetails;
 
 }
