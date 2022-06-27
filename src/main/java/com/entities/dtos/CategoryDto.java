@@ -26,4 +26,11 @@ public class CategoryDto {
                 .slug(entity.getSlug())
                 .build();
     }
+    public CategoryDto(Category entity) {
+        if (entity != null) {
+            this.setCategoryId(entity.getCategoryId());
+            this.setCategoryName(entity.getCategoryName());
+            this.setSlug(entity.getSlug());
+        }
+    }
 }

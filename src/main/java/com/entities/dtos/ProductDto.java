@@ -37,6 +37,18 @@ public class ProductDto {
                 .discount(entity.getDiscount())
                 .build();
     }
+    public ProductDto(Product entity) {
+        if (entity != null) {
+            this.setId(entity.getId());
+            this.setProductName(entity.getProductName());
+            this.setDescription(entity.getDescription());
+            this.setPrice(entity.getPrice());
+            this.setDiscount(entity.getDiscount());
+            this.setQuantity(entity.getQuantity());
+            this.setImages(entity.getImages());
+        }
 
+
+    }
 
 }

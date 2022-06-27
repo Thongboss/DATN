@@ -72,5 +72,8 @@ public class ProductResources {
         Page<Product> productPage = this.productService.findAll(page, ProductSpecification.filter(model));
         return ResponseDto.of(productPage.map(ProductDto::toDto), "Filter products");
     }
-
+    @GetMapping("/{id}")
+    public ResponseDto getAll(@PathVariable Long id) {
+        return ResponseDto.of(this.productService.getAllByCategory(id), "Get all products by category");
+    }
 }
