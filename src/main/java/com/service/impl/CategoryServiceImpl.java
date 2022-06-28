@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.entities.Category;
+import com.entities.dtos.CategoryDto;
 import com.entities.models.CategoryModel;
 import com.repository.CategoryRepository;
 import com.service.ICategoryService;
@@ -65,5 +66,10 @@ public class CategoryServiceImpl implements ICategoryService {
     {
         ids.forEach(this::deleteById);
         return true;
+    }
+
+    @Override
+    public List<CategoryDto> getAll() {
+        return this.categoryRepository.getAll();
     }
 }

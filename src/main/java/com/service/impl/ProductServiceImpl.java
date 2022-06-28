@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.entities.Product;
+import com.entities.dtos.ProductDto;
 import com.entities.models.ProductModel;
 import com.repository.ProductRepository;
 import com.service.IProductService;
@@ -60,5 +61,10 @@ public class ProductServiceImpl implements IProductService {
     public boolean deleteByIds(List<Long> ids) {
         ids.forEach(this::deleteById);
         return true;
+    }
+
+    @Override
+    public List<ProductDto> getAllByCategory(Long categoryId) {
+        return this.productRepository.getAllByCategory(categoryId);
     }
 }
