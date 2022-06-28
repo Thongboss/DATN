@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.entities.Product;
+import com.entities.dtos.ProductDto;
 import com.entities.models.ProductModel;
 import com.repository.ProductRepository;
 import com.service.IProductService;
@@ -33,6 +34,16 @@ public class ProductServiceImpl implements IProductService {
     public Page<Product> findAll(Pageable page, Specification<Product> specifications) {
         return this.productRepository.findAll(specifications, page);
     }
+    
+    @Override
+    public List<Product> findByNameContaining(String name) {
+        return productRepository.findByNameContaining(name);
+    }
+
+    @Override
+    public Page<Product> findByNameContaining(String name, Pageable page) {
+        return productRepository.findByNameContaining(name, page);
+    }
 
     @Override
     public Product findById(Long id) {
@@ -61,4 +72,10 @@ public class ProductServiceImpl implements IProductService {
         ids.forEach(this::deleteById);
         return true;
     }
+
+	@Override
+	public List<ProductDto> getAllByCategory(Long categoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

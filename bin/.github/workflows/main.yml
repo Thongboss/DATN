@@ -6,31 +6,36 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches: [ feature_product-detail_haunv ]
+    tags:
+      - 'dev_*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: copy env
+        run: cat /home/backend_env/datn_env >> .env;
+
+      - name: clean project and build jar f
+        run: mvn clean package -DskipTests;
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Delete container and image
+        run:
+          docker image rm -f spring-app || echo "d";
+          docker container rm -f spring_app || echo "d";
+      - name: Build image and run container
+        run:
+          docker build -t spring-app:latest .;
+          docker run -d -p 8090:8090 --name spring_app spring-app:latest;
+      - name: complete build springboot app
+        run: echo "build springboot app completion";
