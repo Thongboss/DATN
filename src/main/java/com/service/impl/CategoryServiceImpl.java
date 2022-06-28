@@ -70,14 +70,6 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public List<CategoryDto> getAll() {
-<<<<<<< HEAD
         return null;
     }
 }
-=======
-        return this.categoryRepository.getAll();
-    }
-}
-
-
->>>>>>> 257861504b623cda67d7ee2762a74775f224c269

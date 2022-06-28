@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IOrderService extends IBaseService<Order, OrderModel, Long> {
 
-    List<Order> getAllByUserId(Long userId);
+    List<Order> getAllOrderByUserId(Long userId);
 }

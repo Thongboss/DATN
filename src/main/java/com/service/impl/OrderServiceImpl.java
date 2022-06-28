@@ -66,8 +66,9 @@ public class OrderServiceImpl implements IOrderService {
         return false;
     }
 
+
     @Override
-    public List<Order> getAllByUserId(Long userId) {
+    public List<Order> getAllOrderByUserId(Long userId) {
         return null;
     }
 }

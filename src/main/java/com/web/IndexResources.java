@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("index")
+
 public class IndexResources {
     private final IProductService productService;
     private final ICategoryService categoryService;
@@ -33,31 +33,31 @@ public class IndexResources {
     }
 
 
-    @GetMapping
+    @GetMapping("/index")
     private ResponseDto getAll() {
         return ResponseDto.of(categoryService.getAll(), "get all category");
     }
     
-    @GetMapping("search")
-    public List<Product> searchProduct(@RequestParam(name="search", required = false) String product_name){
+    @GetMapping("/index/search")
+    public List<Product> searchProduct(@RequestParam(name="search", required = false) String name){
         List<Product> list = null;
-        if(StringUtils.hasText(product_name)){
-            list = productService.findByNameContaining(product_name);
+        if(StringUtils.hasText(name)){
+            list = productService.findByNameContaining(name);
         }else{
             list = productService.findAll();
         }
         return list;
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/index/products/{id}")
     public ResponseDto getProduct(@PathVariable("id") long id){
       return  ResponseDto.of(ProductDto.toDto(this.productService.findById(id)), "Get product id " + id);
     }
 
 // Hiển thị hóa đơn theo id user:
-    @GetMapping("/orders/{user_id}")
-    public List<Order> OrderByUserId(@PathVariable("user_id") long user_id){
-        List<Order> list=orderService.getAllByUserId(user_id);
+    @GetMapping("/index/orders")
+    public List<Order> OrderByUserId(@RequestParam(name="user_id" ,required=false) long user_id){
+        List<Order> list=orderService.getAllOrderByUserId(user_id);
         return list;
     }
 
