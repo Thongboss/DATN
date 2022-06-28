@@ -73,16 +73,10 @@ public class ProductServiceImpl implements IProductService {
         return true;
     }
 
-<<<<<<< HEAD
+
     @Override
     public List<ProductDto> getAllByCategory(Long categoryId) {
         return this.productRepository.getAllByCategory(categoryId);
     }
-=======
-	@Override
-	public List<ProductDto> getAllByCategory(Long categoryId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
->>>>>>> 14666a3c5db95d109b915fc2f2051e3b6f9b531c
+
 }
