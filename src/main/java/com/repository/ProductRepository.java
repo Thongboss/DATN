@@ -16,6 +16,6 @@ public interface ProductRepository extends JpaRepository<Product,Long>, JpaSpeci
     @Query("select new com.entities.dtos.ProductDto(entity) from Product entity where entity.category.categoryId=?1")
     List<ProductDto> getAllByCategory(Long categoryId);
     
-    List<Product> findByNameContaining(String name);
-    Page<Product> findByNameContaining(String name, Pageable page);
+    List<Product> findAllByProductName(String name);
+    Page<Product> findAllByProductNameContaining(String name, Pageable page);
 }

@@ -37,12 +37,12 @@ public class ProductServiceImpl implements IProductService {
     
     @Override
     public List<Product> findByNameContaining(String name) {
-        return productRepository.findByNameContaining(name);
+        return productRepository.findAllByProductName(name);
     }
 
     @Override
     public Page<Product> findByNameContaining(String name, Pageable page) {
-        return productRepository.findByNameContaining(name, page);
+        return productRepository.findAllByProductNameContaining(name, page);
     }
 
     @Override

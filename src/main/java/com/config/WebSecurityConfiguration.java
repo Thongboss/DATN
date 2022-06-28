@@ -22,7 +22,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     //Các URL có thể tự do truy cập //Public URLs that don't need to be authorized
     private final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
-            new AntPathRequestMatcher("index/products/**", HttpMethod.GET.name()),
+            new AntPathRequestMatcher("/products/**", HttpMethod.GET.name()),
             new AntPathRequestMatcher("/**", HttpMethod.OPTIONS.name()),
             new AntPathRequestMatcher("/categories/**", HttpMethod.GET.name()),
             new AntPathRequestMatcher("/users/login"),

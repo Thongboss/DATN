@@ -39,23 +39,23 @@ public class IndexResources {
     }
     
     @GetMapping("search")
-    public List<Product> searchProduct(@RequestParam(name="search", required = false) String name){
+    public List<Product> searchProduct(@RequestParam(name="search", required = false) String product_name){
         List<Product> list = null;
-        if(StringUtils.hasText(name)){
-            list = productService.findByNameContaining(name);
+        if(StringUtils.hasText(product_name)){
+            list = productService.findByNameContaining(product_name);
         }else{
             list = productService.findAll();
         }
         return list;
     }
 
-    @GetMapping("products/{id}")
+    @GetMapping("/products/{id}")
     public ResponseDto getProduct(@PathVariable("id") long id){
       return  ResponseDto.of(ProductDto.toDto(this.productService.findById(id)), "Get product id " + id);
     }
 
 // Hiển thị hóa đơn theo id user:
-    @GetMapping("orders/{user_id}")
+    @GetMapping("/orders/{user_id}")
     public List<Order> OrderByUserId(@PathVariable("user_id") long user_id){
         List<Order> list=orderService.getAllByUserId(user_id);
         return list;
