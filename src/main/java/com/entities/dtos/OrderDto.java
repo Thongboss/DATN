@@ -29,7 +29,7 @@ public class OrderDto {
     private Date updatedDate;
     private String DeliveryCode;
 
-    private static OrderDto toDto(Order entity) {
+    public static OrderDto toDto(Order entity) {
         if (entity == null) {
             return null;
         }

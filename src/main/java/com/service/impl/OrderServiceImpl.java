@@ -65,4 +65,9 @@ public class OrderServiceImpl implements IOrderService {
     public boolean deleteByIds(List<Long> id) {
         return false;
     }
+
+    @Override
+    public List<Order> getAllByUserId(Long userId) {
+        return null;
+    }
 }
