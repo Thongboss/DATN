@@ -34,6 +34,16 @@ public class ProductServiceImpl implements IProductService {
     public Page<Product> findAll(Pageable page, Specification<Product> specifications) {
         return this.productRepository.findAll(specifications, page);
     }
+    
+    @Override
+    public List<Product> findByNameContaining(String name) {
+        return productRepository.findByNameContaining(name);
+    }
+
+    @Override
+    public Page<Product> findByNameContaining(String name, Pageable page) {
+        return productRepository.findByNameContaining(name, page);
+    }
 
     @Override
     public Product findById(Long id) {
@@ -63,8 +73,16 @@ public class ProductServiceImpl implements IProductService {
         return true;
     }
 
+<<<<<<< HEAD
     @Override
     public List<ProductDto> getAllByCategory(Long categoryId) {
         return this.productRepository.getAllByCategory(categoryId);
     }
+=======
+	@Override
+	public List<ProductDto> getAllByCategory(Long categoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+>>>>>>> 14666a3c5db95d109b915fc2f2051e3b6f9b531c
 }
