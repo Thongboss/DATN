@@ -56,7 +56,7 @@ public class IndexResources {
         List<Order> list=orderService.getAllOrderByUserId(user_id);
         return list;
     }
-    
+
     //    Update mật khẩu user
     @Transactional
     @PutMapping("/index/user{id}")
@@ -64,7 +64,4 @@ public class IndexResources {
         userModel.setId(id);
         return ResponseDto.of(this.userService.update(userModel), "Update user id: " + id);
     }
-
-
-
 }
