@@ -1,6 +1,6 @@
 package com.entities.dtos;
 
-import com.entities.Product;
+import com.entities.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +24,14 @@ public class ProductDto {
     private Integer discount;
     private Integer quantity;
     private String images;
+    private Boolean status;
+    private Brand brand;
+    private Category category;
+    private Country country;
+    private Unit unit;
+    private Weight weight;
 
+    private BrandDto brandDto;
     public static ProductDto toDto(Product entity) {
         if (entity == null) return null;
         return ProductDto.builder()
@@ -35,6 +42,12 @@ public class ProductDto {
                 .quantity(entity.getQuantity())
                 .images(entity.getImages())
                 .discount(entity.getDiscount())
+                .status(entity.getStatus())
+                .brand(BrandDto.toDto(entity.getBrand()))
+                .category(entity.getCategory())
+                .country(entity.getCountry())
+                .unit(entity.getUnit())
+                .weight(entity.getWeight())
                 .build();
     }
     public ProductDto(Product entity) {

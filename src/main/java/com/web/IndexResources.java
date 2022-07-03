@@ -2,35 +2,31 @@ package com.web;
 
 import com.entities.Order;
 import com.entities.Product;
-import com.entities.dtos.OrderDto;
 import com.entities.dtos.ProductDto;
 import com.entities.dtos.ResponseDto;
+import com.entities.models.UserModel;
 import com.service.ICategoryService;
 import com.service.IOrderService;
 import com.service.IProductService;
 
 import java.util.List;
 
+import com.service.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
 
 @RestController
-
+@RequiredArgsConstructor
 public class IndexResources {
     private final IProductService productService;
     private final ICategoryService categoryService;
 
     private final IOrderService orderService;
 
-    public IndexResources(IProductService productService, ICategoryService categoryService, IOrderService orderService) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-        this.orderService = orderService;
-    }
+    private final IUserService userService;
 
 
     @GetMapping("/index")
@@ -60,5 +56,15 @@ public class IndexResources {
         List<Order> list=orderService.getAllOrderByUserId(user_id);
         return list;
     }
+    
+    //    Update mật khẩu user
+    @Transactional
+    @PutMapping("/index/user{id}")
+    public ResponseDto update(@PathVariable long id, @RequestBody UserModel userModel) {
+        userModel.setId(id);
+        return ResponseDto.of(this.userService.update(userModel), "Update user id: " + id);
+    }
+
+
 
 }
