@@ -1,18 +1,12 @@
 package com.web;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import com.entities.dtos.CartDto;
 import com.entities.models.CartModel;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.entities.dtos.ResponseDto;
 import com.service.ICartProductService;
@@ -28,24 +22,38 @@ public class CartResources {
 
     @GetMapping
     public ResponseDto list(Pageable page) {
-        return ResponseDto.of(this.cartService.findAll(page).map(w -> CartDto.toDto(w)), "list warehouse");
+        return ResponseDto.of(this.cartService.findAll(page).map(w -> CartDto.toDto(w)), "list cart");
     }
 
-    @PostMapping
+    @PostMapping("add")
     public ResponseDto addCart(@RequestBody @Valid CartModel model) {
-        model.setId(null);
-        return ResponseDto.of(CartDto.toDto(this.cartService.add(model)), "Add new Warehouse");
+        return ResponseDto.of(CartDto.toDto(this.cartService.add(model)), "Add new cart");
     }
 
     @PutMapping("{id}")
     public ResponseDto updateCart(@PathVariable Long id, @RequestBody @Valid CartModel model) {
         model.setId(id);
-        return ResponseDto.of(CartDto.toDto(this.cartService.update(model)), "update Warehouse");
+        return ResponseDto.of(CartDto.toDto(this.cartService.update(model)), "update cart");
     }
 
-    @DeleteMapping("{id}")
+    @PatchMapping("increase/{id}")
+    public ResponseDto increaseCart(@PathVariable Long id) {
+        return ResponseDto.of(CartDto.toDto(this.cartService.increase(id)), "increase cart");
+    }
+
+    @PatchMapping("decrease/{id}")
+    public ResponseDto decreaseCart(@PathVariable Long id) {
+        return ResponseDto.of(CartDto.toDto(this.cartService.decrease(id)), "decrease cart");
+    }
+
+    @DeleteMapping("public/{id}")
     public ResponseDto deleteCart(@PathVariable Long id) {
         return ResponseDto.of(this.cartService.deleteById(id) ? true : null, "Delete id");
+    }
+
+    @GetMapping("my-cart")
+    public ResponseDto myCart(){
+        return ResponseDto.of(this.cartService.myCart(), "my cart");
     }
 //    @GetMapping("{id}")
 //    public ResponseDto findWarehouseById(@PathVariable Long id){

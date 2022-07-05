@@ -24,7 +24,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
             new AntPathRequestMatcher("/index/orders/**", HttpMethod.GET.name()),
             new AntPathRequestMatcher("/index/**", HttpMethod.GET.name()),
-            new AntPathRequestMatcher("/products/**", HttpMethod.GET.name()),
+            new AntPathRequestMatcher("/products/public/**"),
             new AntPathRequestMatcher("/**", HttpMethod.OPTIONS.name()),
             new AntPathRequestMatcher("/categories/**", HttpMethod.GET.name()),
             new AntPathRequestMatcher("/users/login"),

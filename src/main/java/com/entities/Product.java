@@ -32,8 +32,8 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "discount")
-    private Integer discount;
+    @Column(name = "old_price")
+    private Double oldPrice;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;

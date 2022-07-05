@@ -21,15 +21,15 @@ public class ProductDto {
     private String productName;
     private String description;
     private Double price;
-    private Integer discount;
+    private Double oldPrice;
     private Integer quantity;
     private String images;
     private Boolean status;
-    private Brand brand;
-    private Category category;
-    private Country country;
-    private Unit unit;
-    private Weight weight;
+    private BrandDto brand;
+    private CategoryDto category;
+    private CountryDto country;
+    private UnitDto unit;
+    private WeightDto weight;
 
     private BrandDto brandDto;
     public static ProductDto toDto(Product entity) {
@@ -41,27 +41,15 @@ public class ProductDto {
                 .price(entity.getPrice())
                 .quantity(entity.getQuantity())
                 .images(entity.getImages())
-                .discount(entity.getDiscount())
+                .oldPrice(entity.getOldPrice())
                 .status(entity.getStatus())
                 .brand(BrandDto.toDto(entity.getBrand()))
-                .category(entity.getCategory())
-                .country(entity.getCountry())
-                .unit(entity.getUnit())
-                .weight(entity.getWeight())
+                .category(CategoryDto.toDto(entity.getCategory()))
+                .country(CountryDto.toDto(entity.getCountry()))
+                .unit(UnitDto.toDto(entity.getUnit()))
+                .weight(WeightDto.toDto(entity.getWeight()))
                 .build();
     }
-    public ProductDto(Product entity) {
-        if (entity != null) {
-            this.setId(entity.getId());
-            this.setProductName(entity.getProductName());
-            this.setDescription(entity.getDescription());
-            this.setPrice(entity.getPrice());
-            this.setDiscount(entity.getDiscount());
-            this.setQuantity(entity.getQuantity());
-            this.setImages(entity.getImages());
-        }
 
-
-    }
 
 }

@@ -34,9 +34,6 @@ public class Cart implements Serializable{
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    
-    @Column(name = "price", nullable = false)
-    private Long price;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

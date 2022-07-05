@@ -27,10 +27,8 @@ public class CartModel implements Serializable{
     @NonNull
     @Min(1)
     private Integer quantity;
-    
+
     @NonNull
-    private Long price;
-    
     private Long product;
 
     public static Cart toEntity(CartModel model) {
@@ -38,9 +36,8 @@ public class CartModel implements Serializable{
     		throw new RuntimeException("Cartdetail entity is null");
     	}
     	return Cart.builder()
-    			.id(model.getId())
+                .id(model.getId())
     			.quantity(model.getQuantity())
-    			.price(model.getPrice())
     			.build();
     }
 }

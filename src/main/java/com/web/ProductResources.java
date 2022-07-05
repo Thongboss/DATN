@@ -11,6 +11,7 @@ import com.service.IProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,8 +72,28 @@ public class ProductResources {
         Page<Product> productPage = this.productService.findAll(page, ProductSpecification.filter(model));
         return ResponseDto.of(productPage.map(ProductDto::toDto), "Filter products");
     }
+
     @GetMapping("/{id}")
     public ResponseDto getAll(@PathVariable Long id) {
         return ResponseDto.of(this.productService.getAllByCategory(id), "Get all products by category");
+    }
+
+    @GetMapping("public/products")
+    @Transactional
+    public ResponseDto getAllPublic(Pageable page) {
+        return ResponseDto.of(this.productService.findAll(page).map(ProductDto::toDto), "Get all products");
+    }
+
+    @GetMapping("public/products/{id}")
+    @Transactional
+    public ResponseDto getProductPublic(@PathVariable("id") long id) {
+        return ResponseDto.of(ProductDto.toDto(this.productService.findById(id)), "Get product id: " + id);
+    }
+
+    @GetMapping("public/products/brand/{brandId}")
+    @Transactional
+    public ResponseDto getAllByBrand(@PathVariable Long brandId, Pageable page) {
+//        return ResponseDto.of(this.productService.getAllByBrand(brandId, page).map(ProductDto::toDto), "Get all products by brand");
+        return null;
     }
 }
