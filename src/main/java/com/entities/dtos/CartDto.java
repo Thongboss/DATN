@@ -28,7 +28,7 @@ public class CartDto {
     	}
     	return CartDto.builder()
     			.id(entity.getId())
-    			.price(entity.getPrice())
+//    			.price(entity.getPr())
     			.quantity(entity.getQuantity())
     			.cart(UserDto.toDto(entity.getCreatedUser()))
     			.build();
